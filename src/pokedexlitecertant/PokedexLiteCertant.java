@@ -11,6 +11,7 @@ import Vista.Principal;
 import Vista.allPokemons;
 import Vista.login;
 import Vista.myPokemons;
+import Vista.userPokemonInfo;
 
 /**
  *
@@ -30,6 +31,7 @@ public class PokedexLiteCertant {
         Principal principal = new Principal();
         myPokemons mypk = new myPokemons();
         allPokemons allPkm = new allPokemons();
+        userPokemonInfo uPI = new userPokemonInfo();
         
         //Set de controlador
         controlador.setLogin(login);
@@ -37,6 +39,7 @@ public class PokedexLiteCertant {
         controlador.setPrincipal(principal);
         controlador.setMyPokemons(mypk);
         controlador.setAllPokemons(allPkm);
+        controlador.setUserPokemonInfo(uPI);
         
         //Set de vistas y modelo
         login.setControlador(controlador);
@@ -44,6 +47,7 @@ public class PokedexLiteCertant {
         principal.setControlador(controlador);
         mypk.setControlador(controlador);
         allPkm.setControlador(controlador);
+        uPI.setControlador(controlador);
         
         //
         login.setVisible(true);

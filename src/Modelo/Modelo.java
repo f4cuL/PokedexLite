@@ -73,20 +73,21 @@ public class Modelo {
    }
     public void listMyPokemons(JTable tabla) {
         limpiarTabla(tabla);
-        String sql = "select p.id, p.name from pokemon p inner join user_pokemons up on up.idPokemon=p.id where up.idCliente="+auxUsuario.getId();
+        String sql = "select p.id, p.name, up.lvlFound from pokemon p inner join user_pokemons up on up.idPokemon=p.id where up.idCliente="+auxUsuario.getId();
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
             Connection con = conexion.getConexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            Object[] pokemon = new Object[2];
+            Object[] pokemon = new Object[3];
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
             rs = ps.executeQuery(sql);
             System.out.println(auxUsuario.getId());
             while (rs.next()) {
                 pokemon[0] = rs.getString("id");
-                pokemon[0] = rs.getString("name");
+                pokemon[1] = rs.getString("name");
+                pokemon[2] = rs.getString("lvlFound");
                 modelo.addRow(pokemon);
             }
         } catch (Exception e) {
@@ -120,5 +121,33 @@ public class Modelo {
             tabla2.removeRow(i);
             i = i - 1;
         }
+    }
+    public void cargarTablaType (JTable tabla){
+        limpiarTabla(tabla);
+        String sql = "select pt.name from pokemon_type inner join pokemon p on p.id=pt.idPkm "
+                + "inner join user_pokemons up on up.idPokemon=p.id where p.id=";
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            Object[] pokemon = new Object[2];
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                pokemon[0] = rs.getInt("id");
+                pokemon[1] = rs.getString("name");
+                modelo.addRow(pokemon);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+      public void createPokemonObject()
+      {
+          String sql = "select pt.name from pokemon_type inner join pokemon p on p.id=pt.idPkm "
+                + "inner join user_pokemons up on up.idPokemon=p.id where p.id=";
+      }
     }
 }

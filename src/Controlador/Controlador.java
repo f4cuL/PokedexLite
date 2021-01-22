@@ -10,6 +10,7 @@ import Vista.Principal;
 import Vista.allPokemons;
 import Vista.login;
 import Vista.myPokemons;
+import Vista.userPokemonInfo;
 
 /**
  *
@@ -21,6 +22,15 @@ public class Controlador {
    private Principal principal;
    private myPokemons myPokemons;
    private allPokemons allPokemons;
+   private userPokemonInfo userPokemonInfo;
+
+    public userPokemonInfo getUserPokemonInfo() {
+        return userPokemonInfo;
+    }
+
+    public void setUserPokemonInfo(userPokemonInfo userPokemonInfo) {
+        this.userPokemonInfo = userPokemonInfo;
+    }
 
     public allPokemons getAllPokemons() {
         return allPokemons;

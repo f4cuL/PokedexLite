@@ -6,6 +6,7 @@
 package Vista;
 
 import Controlador.Controlador;
+import javax.swing.JButton;
 import javax.swing.JTable;
 
 /**
@@ -21,6 +22,14 @@ private Controlador controlador;
 
     public void setTablaMyPkn(JTable tablaMyPkn) {
         this.tablaMyPkn = tablaMyPkn;
+    }
+
+    public JButton getBtnInfo() {
+        return btnInfo;
+    }
+
+    public void setBtnInfo(JButton btnInfo) {
+        this.btnInfo = btnInfo;
     }
 
 
@@ -50,6 +59,7 @@ private Controlador controlador;
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMyPkn = new javax.swing.JTable();
+        btnInfo = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -59,44 +69,79 @@ private Controlador controlador;
 
             },
             new String [] {
-                "Nombre"
+                "Id", "Name", "LvlFound"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tablaMyPkn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMyPknMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaMyPkn);
         if (tablaMyPkn.getColumnModel().getColumnCount() > 0) {
             tablaMyPkn.getColumnModel().getColumn(0).setResizable(false);
+            tablaMyPkn.getColumnModel().getColumn(1).setResizable(false);
+            tablaMyPkn.getColumnModel().getColumn(2).setResizable(false);
         }
+
+        btnInfo.setText("See all info of selected Pokemon");
+        btnInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInfoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnInfo)
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
+
+        if (!controlador.getUserPokemonInfo().isVisible())
+        {
+        System.out.println("EA");
+        controlador.getUserPokemonInfo().setVisible(true);
+        controlador.getPrincipal().getDesktop().add(controlador.getUserPokemonInfo(),0);
+        }
+    }//GEN-LAST:event_btnInfoActionPerformed
+
+    private void tablaMyPknMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMyPknMouseClicked
+        
+    }//GEN-LAST:event_tablaMyPknMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaMyPkn;
     // End of variables declaration//GEN-END:variables

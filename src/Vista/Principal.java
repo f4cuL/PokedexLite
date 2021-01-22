@@ -150,15 +150,21 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuActionPerformed
 
     private void btnMyPkmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyPkmActionPerformed
+        if(!controlador.getMyPokemons().isVisible())
+        {
         controlador.getModelo().listMyPokemons(controlador.getMyPokemons().getTablaMyPkn());
         controlador.getMyPokemons().setVisible(true);
         controlador.getPrincipal().getDesktop().add(controlador.getMyPokemons(),0);
+        }
     }//GEN-LAST:event_btnMyPkmActionPerformed
 
     private void btnAllPokemonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllPokemonsActionPerformed
+          if(!controlador.getAllPokemons().isVisible())
+        {
         controlador.getModelo().listAllPokemons(controlador.getAllPokemons().getTablaAllPkm());
         controlador.getAllPokemons().setVisible(true);
         controlador.getPrincipal().getDesktop().add(controlador.getAllPokemons(),0);
+        }
     }//GEN-LAST:event_btnAllPokemonsActionPerformed
 
     /**
