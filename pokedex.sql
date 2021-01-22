@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-01-2021 a las 07:14:14
+-- Tiempo de generación: 22-01-2021 a las 23:26:37
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -31,6 +31,14 @@ CREATE TABLE `abilities` (
   `id` int(11) NOT NULL,
   `name` varchar(20) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `abilities`
+--
+
+INSERT INTO `abilities` (`id`, `name`) VALUES
+(1, 'Static'),
+(2, 'Torrent');
 
 -- --------------------------------------------------------
 
@@ -66,6 +74,26 @@ INSERT INTO `evolution` (`id`, `name`, `lvlEvolve`) VALUES
 (15, 'Raticate', 16),
 (16, 'Fearow', 16),
 (17, 'Arbok', 16);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `evolution_abilities`
+--
+
+CREATE TABLE `evolution_abilities` (
+  `id` int(11) NOT NULL,
+  `idEvo` int(11) NOT NULL,
+  `idAbilitie` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `evolution_abilities`
+--
+
+INSERT INTO `evolution_abilities` (`id`, `idEvo`, `idAbilitie`) VALUES
+(1, 6, 2),
+(2, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -173,7 +201,9 @@ INSERT INTO `pokemon` (`id`, `name`) VALUES
 (7, 'Pidgey'),
 (8, 'Rattata'),
 (9, 'Spearow'),
-(10, 'Ekans');
+(10, 'Ekans'),
+(11, 'Test'),
+(12, 'Puchamon');
 
 -- --------------------------------------------------------
 
@@ -186,6 +216,13 @@ CREATE TABLE `pokemon_abilities` (
   `idPkm` int(11) NOT NULL,
   `idAbilitie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pokemon_abilities`
+--
+
+INSERT INTO `pokemon_abilities` (`pokemon_abilities`, `idPkm`, `idAbilitie`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -265,7 +302,9 @@ INSERT INTO `user_pokemons` (`id`, `idCliente`, `idPokemon`, `lvlFound`) VALUES
 (1, 1, 1, 6),
 (2, 1, 2, 4),
 (3, 2, 3, 7),
-(4, 2, 4, 5);
+(4, 2, 4, 5),
+(5, 1, 4, 0),
+(6, 1, 7, 0);
 
 -- --------------------------------------------------------
 
@@ -302,6 +341,14 @@ ALTER TABLE `abilities`
 --
 ALTER TABLE `evolution`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `evolution_abilities`
+--
+ALTER TABLE `evolution_abilities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEvo` (`idEvo`),
+  ADD KEY `idAbilitie` (`idAbilitie`);
 
 --
 -- Indices de la tabla `evolution_pkm`
@@ -369,13 +416,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `abilities`
 --
 ALTER TABLE `abilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `evolution`
 --
 ALTER TABLE `evolution`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de la tabla `evolution_abilities`
+--
+ALTER TABLE `evolution_abilities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `evolution_pkm`
@@ -393,13 +446,13 @@ ALTER TABLE `evolution_type`
 -- AUTO_INCREMENT de la tabla `pokemon`
 --
 ALTER TABLE `pokemon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `pokemon_abilities`
 --
 ALTER TABLE `pokemon_abilities`
-  MODIFY `pokemon_abilities` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pokemon_abilities` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `pokemon_type`
@@ -417,7 +470,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT de la tabla `user_pokemons`
 --
 ALTER TABLE `user_pokemons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -428,6 +481,13 @@ ALTER TABLE `usuarios`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `evolution_abilities`
+--
+ALTER TABLE `evolution_abilities`
+  ADD CONSTRAINT `evolution_abilities_ibfk_1` FOREIGN KEY (`idAbilitie`) REFERENCES `abilities` (`id`),
+  ADD CONSTRAINT `evolution_abilities_ibfk_2` FOREIGN KEY (`idEvo`) REFERENCES `evolution` (`id`);
 
 --
 -- Filtros para la tabla `evolution_pkm`

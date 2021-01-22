@@ -130,6 +130,7 @@ private Controlador controlador;
 
         if (!controlador.getUserPokemonInfo().isVisible())
         {
+        controlador.getUserPokemonInfo().getLblName().setText(controlador.getModelo().getAuxPokemon().getName());
         controlador.getModelo().cargarTablaType(controlador.getUserPokemonInfo().getTableType());
         controlador.getModelo().cargarTablaEvolutions(controlador.getUserPokemonInfo().getTablaEvolution());
         controlador.getModelo().cargarTablaAbilities(controlador.getUserPokemonInfo().getTablaAbilities());

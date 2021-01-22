@@ -9,8 +9,12 @@ import Controlador.Controlador;
 import Modelo.Modelo;
 import Vista.Principal;
 import Vista.allPokemons;
+import Vista.allPokemonsAddType;
+import Vista.allPokemonsInfo;
 import Vista.login;
 import Vista.myPokemons;
+import Vista.newPokemon;
+import Vista.userEvolutionInfo;
 import Vista.userPokemonInfo;
 
 /**
@@ -32,6 +36,11 @@ public class PokedexLiteCertant {
         myPokemons mypk = new myPokemons();
         allPokemons allPkm = new allPokemons();
         userPokemonInfo uPI = new userPokemonInfo();
+        userEvolutionInfo uEI = new userEvolutionInfo();
+        newPokemon nP = new newPokemon();
+        allPokemonsInfo aPI = new allPokemonsInfo();
+        allPokemonsAddType aPAT = new allPokemonsAddType();
+        
         
         //Set de controlador
         controlador.setLogin(login);
@@ -40,6 +49,10 @@ public class PokedexLiteCertant {
         controlador.setMyPokemons(mypk);
         controlador.setAllPokemons(allPkm);
         controlador.setUserPokemonInfo(uPI);
+        controlador.setUserEvolutionInfo(uEI);
+        controlador.setNewPokemon(nP);
+        controlador.setAllPokemonsInfo(aPI);
+        controlador.setAllPokemonsAddType(aPAT);
         
         //Set de vistas y modelo
         login.setControlador(controlador);
@@ -48,7 +61,10 @@ public class PokedexLiteCertant {
         mypk.setControlador(controlador);
         allPkm.setControlador(controlador);
         uPI.setControlador(controlador);
-        
+        uEI.setControlador(controlador);
+        nP.setControlador(controlador);
+        aPI.setControlador(controlador);
+        aPAT.setControlador(controlador);
         //
         login.setVisible(true);
         

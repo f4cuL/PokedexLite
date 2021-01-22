@@ -8,8 +8,12 @@ package Controlador;
 import Modelo.Modelo;
 import Vista.Principal;
 import Vista.allPokemons;
+import Vista.allPokemonsAddType;
+import Vista.allPokemonsInfo;
 import Vista.login;
 import Vista.myPokemons;
+import Vista.newPokemon;
+import Vista.userEvolutionInfo;
 import Vista.userPokemonInfo;
 
 /**
@@ -23,6 +27,43 @@ public class Controlador {
    private myPokemons myPokemons;
    private allPokemons allPokemons;
    private userPokemonInfo userPokemonInfo;
+   private userEvolutionInfo userEvolutionInfo;
+   private newPokemon newPokemon;
+   private allPokemonsInfo allPokemonsInfo;
+   private allPokemonsAddType allPokemonsAddType;
+
+    public allPokemonsAddType getAllPokemonsAddType() {
+        return allPokemonsAddType;
+    }
+
+    public void setAllPokemonsAddType(allPokemonsAddType allPokemonsAddType) {
+        this.allPokemonsAddType = allPokemonsAddType;
+    }
+
+    public allPokemonsInfo getAllPokemonsInfo() {
+        return allPokemonsInfo;
+    }
+
+    public void setAllPokemonsInfo(allPokemonsInfo allPokemonsInfo) {
+        this.allPokemonsInfo = allPokemonsInfo;
+    }
+   
+
+    public newPokemon getNewPokemon() {
+        return newPokemon;
+    }
+
+    public void setNewPokemon(newPokemon newPokemon) {
+        this.newPokemon = newPokemon;
+    }
+
+    public userEvolutionInfo getUserEvolutionInfo() {
+        return userEvolutionInfo;
+    }
+
+    public void setUserEvolutionInfo(userEvolutionInfo userEvolutionInfo) {
+        this.userEvolutionInfo = userEvolutionInfo;
+    }
 
     public userPokemonInfo getUserPokemonInfo() {
         return userPokemonInfo;

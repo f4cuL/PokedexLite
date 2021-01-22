@@ -177,7 +177,7 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(lblName))
                 .addGap(30, 30, 30)
@@ -201,17 +201,24 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       if(!controlador.getUserEvolutionInfo().isVisible())
+        {
+        controlador.getUserEvolutionInfo().getLblEvolutionName().setText(controlador.getModelo().getAuxEvo().getName());
+        controlador.getModelo().cargarTablaEvoType(controlador.getUserEvolutionInfo().getTableEvoType());
+        controlador.getModelo().cargarTablaEvoAbilities(controlador.getUserEvolutionInfo().getTableEvoAbilities());
+        controlador.getUserEvolutionInfo().setVisible(true);
+        controlador.getPrincipal().getDesktop().add(controlador.getUserEvolutionInfo(),0);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tablaEvolutionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEvolutionMouseClicked
        int fila= tablaEvolution.getSelectedRow();
        if (fila==-1){
-           JOptionPane.showMessageDialog(null,"Usuario no seleccionado");
+           JOptionPane.showMessageDialog(null,"Error");
        }else{
-           System.out.println(fila);
            String nameEvolution=tablaEvolution.getValueAt(fila,0).toString();
-
+           controlador.getModelo().setAuxEvo(controlador.getModelo().createObjectEvolution(nameEvolution));
+           
         }  
     }//GEN-LAST:event_tablaEvolutionMouseClicked
 

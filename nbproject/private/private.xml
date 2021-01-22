@@ -5,11 +5,15 @@
         <group>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Vista/Principal.java</file>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Vista/myPokemons.java</file>
+            <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Vista/userEvolutionInfo.java</file>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Modelo/Modelo.java</file>
+            <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Modelo/Conexion.java</file>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Vista/userPokemonInfo.java</file>
+            <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Modelo/Evolutions.java</file>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Vista/login.java</file>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Modelo/Pokemon.java</file>
             <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/pokedexlitecertant/PokedexLiteCertant.java</file>
+            <file>file:/C:/Users/facue/OneDrive/Documentos/NetBeansProjects/PokedexLiteCertant/src/Controlador/Controlador.java</file>
         </group>
     </open-files>
 </project-private>
