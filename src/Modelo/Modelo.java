@@ -21,6 +21,15 @@ public class Modelo {
     private Controlador controlador;
     private Conexion conexion;
     private Users auxUsuario;
+    private Pokemon auxPokemon;
+
+    public Pokemon getAuxPokemon() {
+        return auxPokemon;
+    }
+
+    public void setAuxPokemon(Pokemon auxPokemon) {
+        this.auxPokemon = auxPokemon;
+    }
 
     public Modelo() {
       conexion = new Conexion();
@@ -124,8 +133,9 @@ public class Modelo {
     }
     public void cargarTablaType (JTable tabla){
         limpiarTabla(tabla);
-        String sql = "select pt.name from pokemon_type inner join pokemon p on p.id=pt.idPkm "
-                + "inner join user_pokemons up on up.idPokemon=p.id where p.id=";
+        controlador.getUserPokemonInfo().getLblName().setText(auxPokemon.getName());
+        String sql = "select t.name from type t inner join pokemon_type pt on pt.idType=t.id "
+                + "inner join pokemon p on p.id=pt.idPkm where p.id="+auxPokemon.getId();
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -136,18 +146,55 @@ public class Modelo {
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
             rs = ps.executeQuery(sql);
             while (rs.next()) {
-                pokemon[0] = rs.getInt("id");
-                pokemon[1] = rs.getString("name");
+                pokemon[0] = rs.getString("name");
                 modelo.addRow(pokemon);
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        
-      public void createPokemonObject()
+    }      
+      public void cargarTablaEvolutions (JTable tabla){
+        limpiarTabla(tabla);
+        String sql = "select e.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
+                + "inner join pokemon p on p.id=ep.idPkm where p.id="+auxPokemon.getId();
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            Object[] pokemon = new Object[2];
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                pokemon[0] = rs.getString("name");
+                modelo.addRow(pokemon);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }    
+    
+      public Pokemon createPokemonObject(int id)
       {
-          String sql = "select pt.name from pokemon_type inner join pokemon p on p.id=pt.idPkm "
-                + "inner join user_pokemons up on up.idPokemon=p.id where p.id=";
+          String sql = "select p.id, p.name from pokemon p inner join user_pokemons up on up.idPokemon=p.id where p.id="+id; 
+          try {
+            Pokemon po = new Pokemon();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                po.setId(rs.getInt("p.id"));
+                po.setName(rs.getString("p.name"));
+                return po;
+            }
+          }
+            catch (Exception e) {
+            System.out.println(e);
+        }
+          return null;
       }
-    }
-}
+    }  

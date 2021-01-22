@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.Controlador;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -129,14 +130,23 @@ private Controlador controlador;
 
         if (!controlador.getUserPokemonInfo().isVisible())
         {
-        System.out.println("EA");
+        controlador.getModelo().cargarTablaType(controlador.getUserPokemonInfo().getTableType());
+        controlador.getModelo().cargarTablaEvolutions(controlador.getUserPokemonInfo().getTablaEvolution());
         controlador.getUserPokemonInfo().setVisible(true);
         controlador.getPrincipal().getDesktop().add(controlador.getUserPokemonInfo(),0);
         }
     }//GEN-LAST:event_btnInfoActionPerformed
 
     private void tablaMyPknMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMyPknMouseClicked
-        
+       int fila= tablaMyPkn.getSelectedRow();
+       if (fila==-1){
+           JOptionPane.showMessageDialog(null,"Usuario no seleccionado");
+       }else{
+           int id= Integer.parseInt(tablaMyPkn.getValueAt(fila,0).toString());
+           controlador.getModelo().setAuxPokemon(controlador.getModelo().createPokemonObject(id));
+           System.out.println(controlador.getModelo().getAuxPokemon().getId());
+           System.out.println(controlador.getModelo().getAuxPokemon().getName());
+        }  
     }//GEN-LAST:event_tablaMyPknMouseClicked
 
 

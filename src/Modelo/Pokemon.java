@@ -9,7 +9,24 @@ package Modelo;
  *
  * @author facue
  */
-public abstract class Pokemon {
+public class Pokemon {
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Abilities[] getAbilites() {
+        return abilites;
+    }
+
+    public void setAbilites(Abilities[] abilites) {
+        this.abilites = abilites;
+    }
     private String name;
     private String [] type;
     private int levelFounded;

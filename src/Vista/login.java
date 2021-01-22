@@ -213,8 +213,6 @@ public class login extends javax.swing.JFrame {
           dispose();
           controlador.getModelo().setAuxUsuario(user);
           controlador.getPrincipal().setVisible(true);
-          System.out.println(controlador.getModelo().getAuxUsuario().getUsername());
-          System.out.println(controlador.getModelo().getAuxUsuario().getPassword());
       }
       
     }//GEN-LAST:event_btnLoginActionPerformed
