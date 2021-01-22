@@ -179,20 +179,20 @@ public class login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
       Users user = new Users(txtUser.getText(),txtPassword.getText());
-      System.out.println(user.getPassword());
-      if (controlador.getModelo().verifyLogin(user))
+      int login = controlador.getModelo().verifyLogin(user);
+      if (login == 0)
+      {
+       JOptionPane.showMessageDialog(null, "Wrong username or password");
+      }
+      else
       {
           JOptionPane.showMessageDialog(null, "Logging in");
+          user.setId(login);
           dispose();
           controlador.getModelo().setAuxUsuario(user);
           controlador.getPrincipal().setVisible(true);
           System.out.println(controlador.getModelo().getAuxUsuario().getUsername());
           System.out.println(controlador.getModelo().getAuxUsuario().getPassword());
-          System.out.println(controlador.getModelo().getAuxUsuario().getId());
-      }
-      else
-      {
-          JOptionPane.showMessageDialog(null, "Wrong username or password");
       }
       
     }//GEN-LAST:event_btnLoginActionPerformed

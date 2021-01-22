@@ -51,7 +51,7 @@ public class Modelo {
         this.controlador = controlador;
     }
     
-    public boolean verifyLogin(Users user)
+    public int verifyLogin(Users user)
     {
         Connection con = conexion.getConexion();
         PreparedStatement ps = null;
@@ -64,17 +64,15 @@ public class Modelo {
             rs= ps.executeQuery();
             if (rs.next())
             {
-                return true;
+                return rs.getInt("id");
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return false;
+        return 0;
    }
     public void listMyPokemons(JTable tabla) {
-        System.out.println(auxUsuario.getUsername());
-        System.out.println(auxUsuario.getPassword());
-        System.out.println(auxUsuario.getId());
+        limpiarTabla(tabla);
         String sql = "select * from pokemon where idUser="+auxUsuario.getId();
         try {
             PreparedStatement ps = null;
