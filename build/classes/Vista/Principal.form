@@ -14,7 +14,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnMyPkm">
               <Properties>
-                <Property name="text" type="java.lang.String" value="See my pokemons"/>
+                <Property name="text" type="java.lang.String" value="View my pokemons"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMyPkmActionPerformed"/>
@@ -29,7 +29,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnAllPokemons">
               <Properties>
-                <Property name="text" type="java.lang.String" value="See all pokemons"/>
+                <Property name="text" type="java.lang.String" value="View all pokemons"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAllPokemonsActionPerformed"/>

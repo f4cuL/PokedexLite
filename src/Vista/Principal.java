@@ -105,7 +105,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnMyPkm.setText("See my pokemons");
+        btnMyPkm.setText("View my pokemons");
         btnMyPkm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMyPkmActionPerformed(evt);
@@ -117,7 +117,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnAllPkm.setText("All Pokemons");
 
-        btnAllPokemons.setText("See all pokemons");
+        btnAllPokemons.setText("View all pokemons");
         btnAllPokemons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAllPokemonsActionPerformed(evt);

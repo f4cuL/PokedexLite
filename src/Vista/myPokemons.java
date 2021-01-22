@@ -132,6 +132,7 @@ private Controlador controlador;
         {
         controlador.getModelo().cargarTablaType(controlador.getUserPokemonInfo().getTableType());
         controlador.getModelo().cargarTablaEvolutions(controlador.getUserPokemonInfo().getTablaEvolution());
+        controlador.getModelo().cargarTablaAbilities(controlador.getUserPokemonInfo().getTablaAbilities());
         controlador.getUserPokemonInfo().setVisible(true);
         controlador.getPrincipal().getDesktop().add(controlador.getUserPokemonInfo(),0);
         }
@@ -144,8 +145,6 @@ private Controlador controlador;
        }else{
            int id= Integer.parseInt(tablaMyPkn.getValueAt(fila,0).toString());
            controlador.getModelo().setAuxPokemon(controlador.getModelo().createPokemonObject(id));
-           System.out.println(controlador.getModelo().getAuxPokemon().getId());
-           System.out.println(controlador.getModelo().getAuxPokemon().getName());
         }  
     }//GEN-LAST:event_tablaMyPknMouseClicked
 

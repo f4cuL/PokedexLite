@@ -92,7 +92,6 @@ public class Modelo {
             Object[] pokemon = new Object[3];
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
             rs = ps.executeQuery(sql);
-            System.out.println(auxUsuario.getId());
             while (rs.next()) {
                 pokemon[0] = rs.getString("id");
                 pokemon[1] = rs.getString("name");
@@ -163,7 +162,7 @@ public class Modelo {
             Connection con = conexion.getConexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            Object[] pokemon = new Object[2];
+            Object[] pokemon = new Object[1];
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
             rs = ps.executeQuery(sql);
             while (rs.next()) {
@@ -174,6 +173,27 @@ public class Modelo {
             System.out.println(e);
         }
     }    
+          public void cargarTablaAbilities (JTable tabla){
+        limpiarTabla(tabla);
+        String sql = "select a.name from abilities a inner join pokemon_abilities pa on pa.idAbilitie=a.id "
+                + "inner join pokemon p on p.id=pa.idPkm where p.id="+auxPokemon.getId();
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            Object[] pokemon = new Object[1];
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            rs = ps.executeQuery(sql);
+            while (rs.next()) {
+                pokemon[0] = rs.getString("name");
+                modelo.addRow(pokemon);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }   
     
       public Pokemon createPokemonObject(int id)
       {
