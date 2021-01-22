@@ -73,7 +73,7 @@ public class Modelo {
    }
     public void listMyPokemons(JTable tabla) {
         limpiarTabla(tabla);
-        String sql = "select * from pokemon where idUser="+auxUsuario.getId();
+        String sql = "select p.id, p.name from pokemon p inner join user_pokemons up on up.idPokemon=p.id where up.idCliente="+auxUsuario.getId();
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
