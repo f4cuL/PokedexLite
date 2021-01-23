@@ -14,7 +14,7 @@ import javax.swing.JTextField;
  *
  * @author facue
  */
-public class newPokemon extends javax.swing.JInternalFrame {
+public class newAbilitie extends javax.swing.JInternalFrame {
     private Controlador controlador;
 
     public Controlador getControlador() {
@@ -27,9 +27,9 @@ public class newPokemon extends javax.swing.JInternalFrame {
     /**
      * Creates new form newPokemon
      */
-    public newPokemon() {
+    public newAbilitie() {
         initComponents();
-        this.setTitle("New pokemon");
+        this.setTitle("New abilitie");
     }
 
     /**
@@ -42,23 +42,23 @@ public class newPokemon extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        txtNewPkm = new javax.swing.JTextField();
-        btnAddPkm = new javax.swing.JButton();
+        txtNewAbilitie = new javax.swing.JTextField();
+        btnAddAbilitie = new javax.swing.JButton();
 
         setClosable(true);
 
         jLabel1.setText("Name:");
 
-        txtNewPkm.addActionListener(new java.awt.event.ActionListener() {
+        txtNewAbilitie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewPkmActionPerformed(evt);
+                txtNewAbilitieActionPerformed(evt);
             }
         });
 
-        btnAddPkm.setText("Add");
-        btnAddPkm.addActionListener(new java.awt.event.ActionListener() {
+        btnAddAbilitie.setText("Add");
+        btnAddAbilitie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddPkmActionPerformed(evt);
+                btnAddAbilitieActionPerformed(evt);
             }
         });
 
@@ -71,8 +71,8 @@ public class newPokemon extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddPkm)
-                    .addComponent(txtNewPkm, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddAbilitie)
+                    .addComponent(txtNewAbilitie, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -81,50 +81,51 @@ public class newPokemon extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNewPkm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNewAbilitie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddPkm)
+                .addComponent(btnAddAbilitie)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddPkmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPkmActionPerformed
-      if (controlador.getModelo().addPokemon())
-      {
-          JOptionPane.showMessageDialog(null, "Pokemon added");
-      }
-      else
-      {
-           JOptionPane.showMessageDialog(null, "Error");
-      }
-    }//GEN-LAST:event_btnAddPkmActionPerformed
+    private void btnAddAbilitieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAbilitieActionPerformed
+        String name=controlador.getModelo().addAbilitie();
+        System.out.println(name);
+        int id= controlador.getModelo().getIdFromAbilitieName(name);
+        System.out.println(id);  
+        if (controlador.getModelo().addAbilitieToPokemon(id))
+        {
+            JOptionPane.showMessageDialog(null, "Evolution added");
+            controlador.getNewAbilitie().getTxtNewAbilitie().setText(null);  
+        }
+    }//GEN-LAST:event_btnAddAbilitieActionPerformed
 
-    private void txtNewPkmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPkmActionPerformed
+    private void txtNewAbilitieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewAbilitieActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPkmActionPerformed
+    }//GEN-LAST:event_txtNewAbilitieActionPerformed
 
-    public JButton getBtnAddPkm() {
-        return btnAddPkm;
+    public JButton getBtnAddAbilitie() {
+        return btnAddAbilitie;
     }
 
-    public void setBtnAddPkm(JButton btnAddPkm) {
-        this.btnAddPkm = btnAddPkm;
+    public void setBtnAddAbilitie(JButton btnAddAbilitie) {
+        this.btnAddAbilitie = btnAddAbilitie;
     }
 
-    public JTextField getTxtNewPkm() {
-        return txtNewPkm;
+    public JTextField getTxtNewAbilitie() {
+        return txtNewAbilitie;
     }
 
-    public void setTxtNewPkm(JTextField txtNewPkm) {
-        this.txtNewPkm = txtNewPkm;
+    public void setTxtNewAbilitie(JTextField txtNewAbilitie) {
+        this.txtNewAbilitie = txtNewAbilitie;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddPkm;
+    private javax.swing.JButton btnAddAbilitie;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField txtNewPkm;
+    private javax.swing.JTextField txtNewAbilitie;
     // End of variables declaration//GEN-END:variables
 }

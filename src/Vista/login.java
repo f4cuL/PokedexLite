@@ -59,6 +59,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        this.setTitle("Login Certant Pokedex Lite");
     }
 
     /**

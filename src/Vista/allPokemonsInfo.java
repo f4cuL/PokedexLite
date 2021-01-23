@@ -92,6 +92,9 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         btnChangeName = new javax.swing.JButton();
         btnAddEvolution = new javax.swing.JButton();
+        btnRemoveEvolution = new javax.swing.JButton();
+        btnAddAbilitie = new javax.swing.JButton();
+        btnRemoveAbi = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -108,10 +111,27 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Name"
+                "Name", "LvlEvolve"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableModifyEvolution.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableModifyEvolutionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableModifyEvolution);
+        if (tableModifyEvolution.getColumnModel().getColumnCount() > 0) {
+            tableModifyEvolution.getColumnModel().getColumn(0).setResizable(false);
+            tableModifyEvolution.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         tableModifyAbilities.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,6 +147,11 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tableModifyAbilities.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableModifyAbilitiesMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tableModifyAbilities);
@@ -198,6 +223,27 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
             }
         });
 
+        btnRemoveEvolution.setText("Remove selected evolution");
+        btnRemoveEvolution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveEvolutionActionPerformed(evt);
+            }
+        });
+
+        btnAddAbilitie.setText("Add abilitie");
+        btnAddAbilitie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAbilitieActionPerformed(evt);
+            }
+        });
+
+        btnRemoveAbi.setText("Remove selected abilitie");
+        btnRemoveAbi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveAbiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,7 +277,14 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNewName)
                                     .addComponent(btnChangeName, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
-                            .addComponent(btnAddEvolution))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddEvolution)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemoveEvolution))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddAbilitie)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemoveAbi)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -262,12 +315,18 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(btnAddEvolution)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddEvolution)
+                    .addComponent(btnRemoveEvolution))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddAbilitie)
+                    .addComponent(btnRemoveAbi))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -361,11 +420,104 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAddEvolutionActionPerformed
 
+    private void tableModifyEvolutionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableModifyEvolutionMouseClicked
+       int fila= tableModifyEvolution.getSelectedRow();
+       if (fila==-1){
+           JOptionPane.showMessageDialog(null,"Error");
+       }
+       else
+       {      
+          controlador.getModelo().setAuxEvo(controlador.getModelo().createObjectEvolution(tableModifyEvolution.getValueAt(fila,0).toString()));
+          controlador.getNewEvolution().dispose();
+        } 
+    }//GEN-LAST:event_tableModifyEvolutionMouseClicked
+
+    private void btnRemoveEvolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEvolutionActionPerformed
+        
+        int idpkm=controlador.getModelo().getAuxPokemon().getId();
+        int idevo=controlador.getModelo().getAuxEvo().getId();
+        if (controlador.getModelo().removeEvolution(idevo, idpkm))
+        {
+            controlador.getModelo().removeDatabaseEvolution(idevo);
+            JOptionPane.showMessageDialog(null, "Deleted");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+    }//GEN-LAST:event_btnRemoveEvolutionActionPerformed
+
+    private void tableModifyAbilitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableModifyAbilitiesMouseClicked
+     int fila = tableModifyAbilities.getSelectedRow();
+     if (fila==-1){
+         JOptionPane.showMessageDialog(null, "Error");
+     }
+     else{
+         controlador.getModelo().setAuxAbi(controlador.getModelo().createObjectAbilities(tableModifyAbilities.getValueAt(fila, 0).toString()));
+         controlador.getNewAbilitie().dispose();
+         
+     }
+    }//GEN-LAST:event_tableModifyAbilitiesMouseClicked
+
+    public JButton getBtnAddAbilitie() {
+        return btnAddAbilitie;
+    }
+
+    public void setBtnAddAbilitie(JButton btnAddAbilitie) {
+        this.btnAddAbilitie = btnAddAbilitie;
+    }
+
+    public JButton getBtnAddEvolution() {
+        return btnAddEvolution;
+    }
+
+    public void setBtnAddEvolution(JButton btnAddEvolution) {
+        this.btnAddEvolution = btnAddEvolution;
+    }
+
+    public JButton getBtnRemoveAbi() {
+        return btnRemoveAbi;
+    }
+
+    public void setBtnRemoveAbi(JButton btnRemoveAbi) {
+        this.btnRemoveAbi = btnRemoveAbi;
+    }
+
+    public JButton getBtnRemoveEvolution() {
+        return btnRemoveEvolution;
+    }
+
+    public void setBtnRemoveEvolution(JButton btnRemoveEvolution) {
+        this.btnRemoveEvolution = btnRemoveEvolution;
+    }
+
+    private void btnAddAbilitieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAbilitieActionPerformed
+        if(!controlador.getNewAbilitie().isVisible())
+        {
+            controlador.getNewAbilitie().setVisible(true);
+            controlador.getPrincipal().getDesktop().add(controlador.getNewAbilitie(),0);
+        }
+    }//GEN-LAST:event_btnAddAbilitieActionPerformed
+
+    private void btnRemoveAbiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAbiActionPerformed
+       if (controlador.getModelo().removeAbilitie(controlador.getModelo().getAuxPokemon().getId(),controlador.getModelo().getAuxAbi().getId())){
+           JOptionPane.showMessageDialog(null, "Deleted");
+           controlador.getModelo().removeDatabaseAbilitie(controlador.getModelo().getAuxAbi().getId());
+       }    
+       else
+       {
+           JOptionPane.showMessageDialog(null, "Error");
+       }
+    }//GEN-LAST:event_btnRemoveAbiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddAbilitie;
     private javax.swing.JButton btnAddEvolution;
     private javax.swing.JButton btnAddType;
     private javax.swing.JButton btnChangeName;
+    private javax.swing.JButton btnRemoveAbi;
+    private javax.swing.JButton btnRemoveEvolution;
     private javax.swing.JButton btnRemoveType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

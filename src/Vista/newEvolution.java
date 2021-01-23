@@ -47,6 +47,7 @@ public class newEvolution extends javax.swing.JInternalFrame {
      */
     public newEvolution() {
         initComponents();
+        this.setTitle("New evolution");
     }
 
     /**
@@ -61,6 +62,8 @@ public class newEvolution extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         txtEvo = new javax.swing.JTextField();
         btnAddEvo = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtInputLvl = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -73,18 +76,23 @@ public class newEvolution extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setText("Lvl Evolution:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAddEvo)
-                    .addComponent(txtEvo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(txtEvo, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(txtInputLvl))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,21 +102,41 @@ public class newEvolution extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtEvo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddEvo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtInputLvl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(btnAddEvo))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddEvoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEvoActionPerformed
-
+        String name=controlador.getModelo().addEvolution();
+        System.out.println(name);
+        int id= controlador.getModelo().getIdFromEvolutionName(name);
+        if (controlador.getModelo().addEvolutionToPokemon(id))
+        {
+            JOptionPane.showMessageDialog(null, "Evolution added");
+            controlador.getNewEvolution().getTxtInputLvl().setText(null);
+        }
     }//GEN-LAST:event_btnAddEvoActionPerformed
+
+    public JTextField getTxtInputLvl() {
+        return txtInputLvl;
+    }
+
+    public void setTxtInputLvl(JTextField txtInputLvl) {
+        this.txtInputLvl = txtInputLvl;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEvo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtEvo;
+    private javax.swing.JTextField txtInputLvl;
     // End of variables declaration//GEN-END:variables
 }

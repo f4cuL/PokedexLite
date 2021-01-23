@@ -62,6 +62,7 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
      */
     public userPokemonInfo() {
         initComponents();
+        this.setTitle("Pokemon info");
     }
 
     /**
@@ -97,7 +98,7 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                " Type name"
+                " Type name", "lvl Evolve"
             }
         ));
         jScrollPane1.setViewportView(tableType);

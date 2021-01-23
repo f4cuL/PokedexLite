@@ -86,8 +86,19 @@ public class userEvolutionInfo extends javax.swing.JInternalFrame {
             new String [] {
                 "Name"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableEvoType);
+        if (tableEvoType.getColumnModel().getColumnCount() > 0) {
+            tableEvoType.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         jLabel2.setText("Type/s");
 

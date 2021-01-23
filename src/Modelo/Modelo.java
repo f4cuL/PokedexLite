@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +27,7 @@ public class Modelo {
     private Pokemon auxPokemon;
     private Evolution auxEvo;
     private Type auxType;
+    private Abilities auxAbi;
 
     public Type getAuxType() {
         return auxType;
@@ -165,7 +168,7 @@ public class Modelo {
 
     public void cargarTablaEvolutions(JTable tabla) {
         limpiarTabla(tabla);
-        String sql = "select e.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
+        String sql = "select e.name, e.lvlEvolve from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
                 + "inner join pokemon p on p.id=ep.idPkm where p.id=" + auxPokemon.getId();
         try {
             PreparedStatement ps = null;
@@ -173,10 +176,11 @@ public class Modelo {
             Connection con = conexion.getConexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            Object[] pokemon = new Object[1];
+            Object[] pokemon = new Object[2];
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
             while (rs.next()) {
                 pokemon[0] = rs.getString("name");
+                pokemon[1] = rs.getString("lvlEvolve");
                 modelo.addRow(pokemon);
             }
         } catch (Exception e) {
@@ -244,6 +248,7 @@ public class Modelo {
         }
         return null;
     }
+    
 
     public Evolution createObjectEvolution(String name) {
         String sql = "select e.id, e.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo inner join pokemon p"
@@ -264,6 +269,34 @@ public class Modelo {
             System.out.println(e);
         }
         return null;
+    }
+    
+      public Abilities createObjectAbilities(String name) {
+        String sql = "select a.id, a.name from abilities a where a.name='"+name+"'"; 
+        try {
+            Abilities abi = new Abilities();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                abi.setId(rs.getInt("a.id"));
+                abi.setName(rs.getString("a.name"));
+                return abi;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Abilities getAuxAbi() {
+        return auxAbi;
+    }
+
+    public void setAuxAbi(Abilities auxAbi) {
+        this.auxAbi = auxAbi;
     }
 
     public void cargarTablaEvoType(JTable tabla) {
@@ -326,80 +359,168 @@ public class Modelo {
         }
         return false;
     }
-        public boolean addEvolution() {
-        String sql = "insert into evolution(name) values(?)";
+
+    public String addEvolution() {
+        String sql = "insert into evolution(name,lvlEvolve) values(?,?)";
         try {
             PreparedStatement ps = null;
             Connection con = conexion.getConexion();
             ps = con.prepareStatement(sql);
             ps.setString(1, controlador.getNewEvolution().getTxtEvo().getText());
+            ps.setString(2, controlador.getNewEvolution().getTxtInputLvl().getText());
             ps.execute();
-            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyEvolution());
-            cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+            String name=controlador.getNewEvolution().getTxtEvo().getText();
             controlador.getNewEvolution().getTxtEvo().setText(null);
+            return name;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ("Error");
+    }
+    
+    public String addAbilitie() {
+        String sql = "insert into abilities(name) values(?)";
+        try {
+            PreparedStatement ps = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, controlador.getNewAbilitie().getTxtNewAbilitie().getText());
+            ps.execute();
+            String name=controlador.getNewAbilitie().getTxtNewAbilitie().getText();
+            controlador.getNewEvolution().getTxtEvo().setText(null);
+            return name;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return ("Error");
+    }
+ 
+    public boolean removeAbilitie(int idPkm, int idAbilitie) {
+        String sql = "delete from pokemon_abilities where idPkm=? and idAbilitie=?";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idPkm);
+            ps.setInt(2, idAbilitie);
+            System.out.println(ps);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyAbilities());
+            cargarTablaAbilities(controlador.getAllPokemonsInfo().getTableModifyAbilities());
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    public boolean addAbilitieToPokemon(int idAbilitie){
+        String sql = "insert into pokemon_abilities(idPkm,idAbilitie) values(?,?)";
+        PreparedStatement ps = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, auxPokemon.getId());
+            ps.setInt(2, idAbilitie);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyAbilities());
+            cargarTablaAbilities(controlador.getAllPokemonsInfo().getTableModifyAbilities());
+            controlador.getNewAbilitie().getTxtNewAbilitie().setText(null);
             return true;
         } catch (Exception e) {
             System.out.println(e);
         }
         return false;
+    }
+    
+    public int getIdFromAbilitieName(String name) {
+        String sql = "select id from abilities where name='" + name + "'";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps = con.prepareStatement(sql);
+            rs= ps.executeQuery();
+            while (rs.next())
+            {
+             return(rs.getInt("id"));
+            }     
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
     }
 
     public Evolution getAuxEvo() {
         return auxEvo;
     }
-    
+
     public void setAuxEvo(Evolution auxEvo) {
         this.auxEvo = auxEvo;
     }
+
+    public void btnTypes() {
+        String sql = "select name from type";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                controlador.getAllPokemonsAddType().getTypeComboBox().addItem(rs.getString("name"));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    public int getIdFromPokemonType(String name) {
+        String sql = "select id from type where name='" + name + "'";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conexion.getConexion();
+        int id = 0;
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return (id);
+    }
+
+    public boolean addType(int id) {
+        String sql = "insert into pokemon_type(idPkm,idType) values (?,?)";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareCall(sql);
+            ps.setInt(1, controlador.getModelo().getAuxPokemon().getId());
+            ps.setInt(2, id);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyType());
+            cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
     
-    public void btnTypes()
-    {
-      String sql="select name from type";
-      PreparedStatement ps = null;
-      ResultSet rs = null;
-      Connection con= conexion.getConexion();
+    public boolean removeType(int id) {
+        String sql = "delete from pokemon_type where idPkm=? and idType=?";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next())
-            {
-               controlador.getAllPokemonsAddType().getTypeComboBox().addItem(rs.getString("name"));
-            }
-            
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-   
-    }
-    public int getIdFromPokemonType(String name)
-    {
-        String sql="select id from type where name='"+name+"'";
-        PreparedStatement ps=null;
-        ResultSet rs=null;
-        Connection con = conexion.getConexion();
-        int id=0;
-        try {
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next())
-            {
-             id = rs.getInt("id");
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-        return(id);
-    }
-    public boolean addType(int id)
-    {
-        String sql="insert into pokemon_type(idPkm,idType) values (?,?)";
-        Connection con = conexion.getConexion();
-        PreparedStatement ps= null;
-        try {
-            ps = con.prepareCall(sql);
-            ps.setInt(1,controlador.getModelo().getAuxPokemon().getId());
-            ps.setInt(2,id);
+            ps.setInt(1, controlador.getModelo().getAuxPokemon().getId());
+            ps.setInt(2, id);
             ps.execute();
             limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyType());
             cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
@@ -409,26 +530,28 @@ public class Modelo {
         }
         return false;
     }
-    public boolean removeType(int id)
-    {
-        String sql="delete from pokemon_type where idPkm=? and idType=? ";
+    
+    public boolean removeEvolution(int idevo, int idpkm) {
+        String sql = "delete from evolution_pkm where idEvo=? and idPkm=?";
         Connection con = conexion.getConexion();
-        PreparedStatement ps= null;
+        PreparedStatement ps = null;
         try {
-            ps = con.prepareCall(sql);
-            ps.setInt(1,controlador.getModelo().getAuxPokemon().getId());
-            ps.setInt(2,id);
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idevo);
+            ps.setInt(2, idpkm);
+            System.out.println(ps);
             ps.execute();
-            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyType());
-            cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+            cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
             return true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return false;
     }
+
     public Type createTypeObject(String name) {
-            String sql = "select t.id, t.name from type t where t.name='" + name+"'";
+        String sql = "select t.id, t.name from type t where t.name='" + name + "'";
         try {
             Type ty = new Type();
             PreparedStatement ps = null;
@@ -446,9 +569,9 @@ public class Modelo {
         }
         return null;
     }
-    
+
     public boolean changePokemonName(int id) {
-        String sql = "update pokemon p set p.name ='"+controlador.getAllPokemonsInfo().getTxtNewName().getText()+"' where p.id="+id;
+        String sql = "update pokemon p set p.name ='" + controlador.getAllPokemonsInfo().getTxtNewName().getText() + "' where p.id=" + id;
         Connection con = conexion.getConexion();
         PreparedStatement ps = null;
         try {
@@ -463,5 +586,70 @@ public class Modelo {
             System.out.println(e);
         }
         return false;
+    }
+    
+    public int getIdFromEvolutionName(String name) {
+        String sql = "select id from evolution where name='" + name + "'";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps = con.prepareStatement(sql);
+            rs= ps.executeQuery();
+            while (rs.next())
+            {
+             return(rs.getInt("id"));
+            }     
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    
+    public boolean addEvolutionToPokemon(int idEvolution){
+        String sql = "insert into evolution_pkm(idEvo,idPkm) values(?,?)";
+        PreparedStatement ps = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idEvolution);
+            ps.setInt(2, auxPokemon.getId());
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+            cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    public boolean removeDatabaseEvolution(int id)
+    {
+        String sql="delete from evolution where id="+id;
+        PreparedStatement ps = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps=con.prepareStatement(sql);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+       return false;
+    }
+     public boolean removeDatabaseAbilitie(int id)
+    {
+        String sql="delete from abilities where id="+id;
+        PreparedStatement ps = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps=con.prepareStatement(sql);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+       return false;
     }
 }

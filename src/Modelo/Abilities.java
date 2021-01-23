@@ -10,8 +10,17 @@ package Modelo;
  * @author facue
  */
 public class Abilities {
-    String Name;
-    private String [] type;
+    private String Name;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     public Abilities() {
     }
@@ -24,12 +33,5 @@ public class Abilities {
         this.Name = Name;
     }
 
-    public String[] getType() {
-        return type;
-    }
-
-    public void setType(String[] type) {
-        this.type = type;
-    }
     
 }

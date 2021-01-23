@@ -43,8 +43,5 @@ public class Pokemon {
     public void setLevelFounded(int levelFounded) {
         this.levelFounded = levelFounded;
     }
-
-    
-   
-    
+  
 }
