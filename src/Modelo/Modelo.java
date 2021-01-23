@@ -430,6 +430,25 @@ public class Modelo {
         }
         return false;
     }
+        public boolean removeAbilitieEvo(int idEvo, int idAbilitie) {
+        String sql = "delete from evolution_abilities where idEvo=? and idAbilitie=?";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idEvo);
+            ps.setInt(2, idAbilitie);
+            System.out.println(ps);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsModifyEvolution().getTableAbilitiesEvo());
+            cargarTablaEvoAbilities(controlador.getAllPokemonsModifyEvolution().getTableAbilitiesEvo());
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
     
     public boolean addAbilitieToPokemon(int idAbilitie){
         String sql = "insert into pokemon_abilities(idPkm,idAbilitie) values(?,?)";
