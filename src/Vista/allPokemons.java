@@ -159,8 +159,14 @@ public class allPokemons extends javax.swing.JInternalFrame {
            int id= Integer.parseInt(tablaAllPkm.getValueAt(fila,0).toString());
            controlador.getModelo().setAuxPokemon(controlador.getModelo().createPokemonObjectAll(id));
            controlador.getAllPokemonsInfo().dispose();
-           
-        } 
+           controlador.getAllPokemonsAddType().dispose();
+           controlador.getAllPokemonsAddTypeEvo().dispose();
+           controlador.getAllPokemonsInfo().dispose();
+           controlador.getAllPokemonsModifyEvolution().dispose();
+           controlador.getNewAbilitie().dispose();
+           controlador.getNewAbilitieEvo().dispose();
+           controlador.getNewEvolution().dispose();
+       } 
     }//GEN-LAST:event_tablaAllPkmMouseClicked
 
 
