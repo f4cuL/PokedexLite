@@ -98,7 +98,7 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                " Type name", "lvl Evolve"
+                " Type name"
             }
         ));
         jScrollPane1.setViewportView(tableType);
@@ -110,15 +110,27 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Evolution name"
+                "Evolution name", "LvlEvolve"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaEvolution.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaEvolutionMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tablaEvolution);
+        if (tablaEvolution.getColumnModel().getColumnCount() > 0) {
+            tablaEvolution.getColumnModel().getColumn(0).setResizable(false);
+            tablaEvolution.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         jLabel4.setText("Abilitie/s");
 
