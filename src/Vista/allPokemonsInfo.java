@@ -6,8 +6,11 @@
 package Vista;
 
 import Controlador.Controlador;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -85,6 +88,10 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
         lblNameModify = new javax.swing.JLabel();
         btnAddType = new javax.swing.JButton();
         btnRemoveType = new javax.swing.JButton();
+        txtNewName = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        btnChangeName = new javax.swing.JButton();
+        btnAddEvolution = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -143,6 +150,11 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableModifyType.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableModifyTypeMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tableModifyType);
         if (tableModifyType.getColumnModel().getColumnCount() > 0) {
             tableModifyType.getColumnModel().getColumn(0).setResizable(false);
@@ -164,6 +176,28 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNewName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNewNameActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("New name");
+
+        btnChangeName.setText("Change name");
+        btnChangeName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeNameActionPerformed(evt);
+            }
+        });
+
+        btnAddEvolution.setText("Add evolution");
+        btnAddEvolution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEvolutionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,21 +205,35 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblNameModify))
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddType)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRemoveType)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAddType)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnRemoveType))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblNameModify)
+                                        .addGap(79, 79, 79)
+                                        .addComponent(jLabel5))
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNewName)
+                                    .addComponent(btnChangeName, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)))
+                            .addComponent(btnAddEvolution))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,10 +241,17 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(lblNameModify))
+                    .addComponent(lblNameModify)
+                    .addComponent(txtNewName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnChangeName)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -206,11 +261,13 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
+                .addComponent(btnAddEvolution)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         pack();
@@ -226,17 +283,95 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddTypeActionPerformed
 
     private void btnRemoveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveTypeActionPerformed
-        // TODO add your handling code here:
+        if (controlador.getModelo().removeType(controlador.getModelo().getAuxType().getId()))
+        {
+            JOptionPane.showMessageDialog(null, "Deleted type");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
     }//GEN-LAST:event_btnRemoveTypeActionPerformed
+
+    private void tableModifyTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableModifyTypeMouseClicked
+    int fila = tableModifyType.getSelectedRow();
+    if (fila==-1)
+    {
+        JOptionPane.showMessageDialog(null, "Error");
+    }
+    else
+    {
+        String name = tableModifyType.getValueAt(fila,0).toString();
+        controlador.getModelo().setAuxType(controlador.getModelo().createTypeObject(name));
+    }
+    }//GEN-LAST:event_tableModifyTypeMouseClicked
+
+    public JButton getBtnAddType() {
+        return btnAddType;
+    }
+
+    public void setBtnAddType(JButton btnAddType) {
+        this.btnAddType = btnAddType;
+    }
+
+    public JButton getBtnChangeName() {
+        return btnChangeName;
+    }
+
+    public void setBtnChangeName(JButton btnChangeName) {
+        this.btnChangeName = btnChangeName;
+    }
+
+    public JButton getBtnRemoveType() {
+        return btnRemoveType;
+    }
+
+    public void setBtnRemoveType(JButton btnRemoveType) {
+        this.btnRemoveType = btnRemoveType;
+    }
+
+    public JTextField getTxtNewName() {
+        return txtNewName;
+    }
+
+    public void setTxtNewName(JTextField txtNewName) {
+        this.txtNewName = txtNewName;
+    }
+
+    private void txtNewNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewNameActionPerformed
+
+    }//GEN-LAST:event_txtNewNameActionPerformed
+
+    private void btnChangeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeNameActionPerformed
+        if (controlador.getModelo().changePokemonName(controlador.getModelo().getAuxPokemon().getId()))
+        {
+            JOptionPane.showMessageDialog(null, "Name changed");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Error");
+        }
+    }//GEN-LAST:event_btnChangeNameActionPerformed
+
+    private void btnAddEvolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEvolutionActionPerformed
+        if (!controlador.getNewEvolution().isVisible())
+        {
+            controlador.getNewEvolution().setVisible(true);
+            controlador.getPrincipal().getDesktop().add(controlador.getNewEvolution(),0);
+        }
+    }//GEN-LAST:event_btnAddEvolutionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddEvolution;
     private javax.swing.JButton btnAddType;
+    private javax.swing.JButton btnChangeName;
     private javax.swing.JButton btnRemoveType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -244,5 +379,6 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
     private javax.swing.JTable tableModifyAbilities;
     private javax.swing.JTable tableModifyEvolution;
     private javax.swing.JTable tableModifyType;
+    private javax.swing.JTextField txtNewName;
     // End of variables declaration//GEN-END:variables
 }

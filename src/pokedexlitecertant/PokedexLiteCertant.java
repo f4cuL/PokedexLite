@@ -13,6 +13,7 @@ import Vista.allPokemonsAddType;
 import Vista.allPokemonsInfo;
 import Vista.login;
 import Vista.myPokemons;
+import Vista.newEvolution;
 import Vista.newPokemon;
 import Vista.userEvolutionInfo;
 import Vista.userPokemonInfo;
@@ -40,6 +41,7 @@ public class PokedexLiteCertant {
         newPokemon nP = new newPokemon();
         allPokemonsInfo aPI = new allPokemonsInfo();
         allPokemonsAddType aPAT = new allPokemonsAddType();
+        newEvolution nE = new newEvolution();
         
         
         //Set de controlador
@@ -53,6 +55,7 @@ public class PokedexLiteCertant {
         controlador.setNewPokemon(nP);
         controlador.setAllPokemonsInfo(aPI);
         controlador.setAllPokemonsAddType(aPAT);
+        controlador.setNewEvolution(nE);
         
         //Set de vistas y modelo
         login.setControlador(controlador);
@@ -64,7 +67,8 @@ public class PokedexLiteCertant {
         uEI.setControlador(controlador);
         nP.setControlador(controlador);
         aPI.setControlador(controlador);
-        aPAT.setControlador(controlador);
+        nE.setControlador(controlador);
+        
         //
         login.setVisible(true);
         

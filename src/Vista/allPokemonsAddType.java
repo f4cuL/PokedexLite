@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.Controlador;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -97,9 +98,10 @@ public class allPokemonsAddType extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeActionPerformed
-
-        System.out.println(controlador.getAllPokemonsAddType().getTypeComboBox().getSelectedItem().toString());
-        System.out.println(controlador.getModelo().getIdFromPokemonType(controlador.getAllPokemonsAddType().getTypeComboBox().getSelectedItem().toString()));
+    if (!controlador.getModelo().addType(controlador.getModelo().getIdFromPokemonType(controlador.getAllPokemonsAddType().getTypeComboBox().getSelectedItem().toString())))
+        {
+            JOptionPane.showMessageDialog(null, "error");
+        }
     }//GEN-LAST:event_btnAddTypeActionPerformed
 
 

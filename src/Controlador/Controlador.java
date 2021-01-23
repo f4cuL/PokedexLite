@@ -12,6 +12,7 @@ import Vista.allPokemonsAddType;
 import Vista.allPokemonsInfo;
 import Vista.login;
 import Vista.myPokemons;
+import Vista.newEvolution;
 import Vista.newPokemon;
 import Vista.userEvolutionInfo;
 import Vista.userPokemonInfo;
@@ -29,12 +30,21 @@ public class Controlador {
    private userPokemonInfo userPokemonInfo;
    private userEvolutionInfo userEvolutionInfo;
    private newPokemon newPokemon;
+   private newEvolution newEvolution;
    private allPokemonsInfo allPokemonsInfo;
    private allPokemonsAddType allPokemonsAddType;
-
     public allPokemonsAddType getAllPokemonsAddType() {
         return allPokemonsAddType;
     }
+
+    public newEvolution getNewEvolution() {
+        return newEvolution;
+    }
+
+    public void setNewEvolution(newEvolution newEvolution) {
+        this.newEvolution = newEvolution;
+    }
+    
 
     public void setAllPokemonsAddType(allPokemonsAddType allPokemonsAddType) {
         this.allPokemonsAddType = allPokemonsAddType;

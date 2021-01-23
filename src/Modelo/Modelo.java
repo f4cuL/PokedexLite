@@ -24,7 +24,16 @@ public class Modelo {
     private Users auxUsuario;
     private Pokemon auxPokemon;
     private Evolution auxEvo;
+    private Type auxType;
 
+    public Type getAuxType() {
+        return auxType;
+    }
+
+    public void setAuxType(Type auxType) {
+        this.auxType = auxType;
+    }
+    
     public Pokemon getAuxPokemon() {
         return auxPokemon;
     }
@@ -317,6 +326,23 @@ public class Modelo {
         }
         return false;
     }
+        public boolean addEvolution() {
+        String sql = "insert into evolution(name) values(?)";
+        try {
+            PreparedStatement ps = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, controlador.getNewEvolution().getTxtEvo().getText());
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+            cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+            controlador.getNewEvolution().getTxtEvo().setText(null);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 
     public Evolution getAuxEvo() {
         return auxEvo;
@@ -367,7 +393,75 @@ public class Modelo {
     }
     public boolean addType(int id)
     {
-        //String sql="insert into "
-        return true;
+        String sql="insert into pokemon_type(idPkm,idType) values (?,?)";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps= null;
+        try {
+            ps = con.prepareCall(sql);
+            ps.setInt(1,controlador.getModelo().getAuxPokemon().getId());
+            ps.setInt(2,id);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyType());
+            cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public boolean removeType(int id)
+    {
+        String sql="delete from pokemon_type where idPkm=? and idType=? ";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps= null;
+        try {
+            ps = con.prepareCall(sql);
+            ps.setInt(1,controlador.getModelo().getAuxPokemon().getId());
+            ps.setInt(2,id);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyType());
+            cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    public Type createTypeObject(String name) {
+            String sql = "select t.id, t.name from type t where t.name='" + name+"'";
+        try {
+            Type ty = new Type();
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ty.setId(rs.getInt("t.id"));
+                ty.setName(rs.getString("t.name"));
+                return ty;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public boolean changePokemonName(int id) {
+        String sql = "update pokemon p set p.name ='"+controlador.getAllPokemonsInfo().getTxtNewName().getText()+"' where p.id="+id;
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareCall(sql);
+            ps.execute();
+            limpiarTabla(controlador.getAllPokemons().getTablaAllPkm());
+            listAllPokemons(controlador.getAllPokemons().getTablaAllPkm());
+            controlador.getAllPokemonsInfo().getLblNameModify().setText(controlador.getAllPokemonsInfo().getTxtNewName().getText());
+            controlador.getAllPokemonsInfo().getTxtNewName().setText(null);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }
