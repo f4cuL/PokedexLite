@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-01-2021 a las 08:22:00
+-- Tiempo de generación: 23-01-2021 a las 12:57:26
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -37,14 +37,42 @@ CREATE TABLE `abilities` (
 --
 
 INSERT INTO `abilities` (`id`, `name`) VALUES
-(1, 'Static'),
-(2, 'Torrent'),
-(6, 'Punch'),
-(7, 'Headshot'),
-(9, 'punch'),
-(10, 'Headshot'),
-(12, 'Tapper'),
-(13, 'Hola');
+(1, 'Overgrow'),
+(2, 'Overgrow'),
+(3, 'Overgrow'),
+(4, 'Blaze'),
+(5, 'Blaze'),
+(6, 'Blaze'),
+(7, 'Torrent'),
+(8, 'Torrent'),
+(9, 'Torrent'),
+(10, 'Shield Dust'),
+(11, 'Shield Dust'),
+(12, 'Shield Dust'),
+(13, 'Shield Dust'),
+(14, 'Shield Dust'),
+(15, 'Swarm'),
+(16, 'Shed Skin'),
+(17, 'Compound Eyes'),
+(18, 'Shed skin'),
+(19, 'Keen Eye'),
+(20, 'Tangled Feet'),
+(21, 'Keen Eye'),
+(22, 'Tangled Feet'),
+(23, 'Keen Eye'),
+(24, 'Tangled Feet'),
+(25, 'Run away'),
+(26, 'Guts'),
+(27, 'Run Away'),
+(28, 'Guts'),
+(29, 'Keen Eye'),
+(30, 'Keen Eye'),
+(31, 'Shed Skin'),
+(32, 'Intimidate'),
+(33, 'Shed Skin'),
+(34, 'Intimidate'),
+(35, 'Static'),
+(36, 'Static');
 
 -- --------------------------------------------------------
 
@@ -63,31 +91,22 @@ CREATE TABLE `evolution` (
 --
 
 INSERT INTO `evolution` (`id`, `name`, `lvlEvolve`) VALUES
-(1, 'Raychu', 32),
-(2, 'Ivysaur', 16),
-(3, 'Venusaur', 32),
-(4, 'Pichu', 16),
+(1, 'Ivysaur', 16),
+(2, 'Venusaur', 32),
+(3, 'Charmeleon', 16),
+(4, 'Charizard', 32),
 (5, 'Wartortle', 16),
 (6, 'Blastoise', 32),
-(7, 'Charmeleon', 16),
-(8, 'Charizard', 32),
-(9, 'Metapod', 16),
-(10, 'Butterfree', 32),
-(11, 'Kakuna', 16),
-(12, 'Beedril', 32),
-(13, 'Pidgeotto', 16),
-(14, 'Pidgeot', 32),
-(15, 'Raticate', 16),
-(16, 'Fearow', 16),
-(17, 'Arbok', 16),
-(18, 'test', 16),
-(19, 'test', 12),
-(20, 'test', 18),
-(21, 'tester', 2),
-(22, 'Planteitor', 15),
-(24, 'Planteitor', 32),
-(25, 'Plantador', 32),
-(28, 'Giovanna', 32);
+(7, 'Metapod', 16),
+(8, 'Butterfree', 32),
+(9, 'Kakuna', 16),
+(10, 'Beedril', 32),
+(11, 'Pidgeotto', 16),
+(12, 'Pidgeot', 32),
+(13, 'Raticate', 16),
+(14, 'Fearow', 16),
+(15, 'Arbok', 16),
+(16, 'Raichu', 16);
 
 -- --------------------------------------------------------
 
@@ -106,8 +125,26 @@ CREATE TABLE `evolution_abilities` (
 --
 
 INSERT INTO `evolution_abilities` (`id`, `idEvo`, `idAbilitie`) VALUES
-(1, 6, 2),
-(2, 4, 1);
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 4),
+(4, 4, 4),
+(5, 5, 7),
+(6, 6, 7),
+(10, 10, 15),
+(11, 7, 16),
+(12, 8, 17),
+(13, 9, 16),
+(14, 11, 19),
+(15, 11, 20),
+(16, 12, 19),
+(17, 12, 20),
+(18, 13, 25),
+(19, 13, 26),
+(20, 14, 19),
+(21, 15, 16),
+(22, 15, 32),
+(23, 16, 35);
 
 -- --------------------------------------------------------
 
@@ -126,27 +163,22 @@ CREATE TABLE `evolution_pkm` (
 --
 
 INSERT INTO `evolution_pkm` (`id`, `idEvo`, `idPkm`) VALUES
-(1, 2, 3),
-(2, 3, 3),
-(3, 1, 1),
-(4, 4, 1),
-(5, 5, 2),
-(6, 6, 2),
-(7, 2, 3),
-(8, 3, 3),
-(9, 7, 4),
-(10, 8, 4),
-(11, 9, 5),
-(12, 10, 5),
-(13, 11, 6),
-(14, 12, 6),
-(15, 13, 7),
-(16, 14, 7),
-(17, 15, 8),
-(18, 16, 9),
-(23, 22, 11),
-(24, 25, 11),
-(27, 28, 12);
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 2),
+(4, 4, 2),
+(5, 5, 3),
+(6, 6, 3),
+(7, 7, 4),
+(8, 8, 4),
+(9, 9, 5),
+(10, 10, 5),
+(11, 11, 6),
+(12, 12, 6),
+(13, 13, 7),
+(14, 14, 8),
+(15, 15, 9),
+(16, 16, 10);
 
 -- --------------------------------------------------------
 
@@ -165,32 +197,31 @@ CREATE TABLE `evolution_type` (
 --
 
 INSERT INTO `evolution_type` (`id`, `idEvo`, `idType`) VALUES
-(1, 1, 2),
-(2, 3, 3),
+(1, 1, 7),
+(2, 1, 3),
 (3, 2, 3),
 (4, 2, 7),
-(5, 3, 7),
-(6, 4, 2),
-(7, 5, 5),
-(8, 6, 5),
-(9, 7, 4),
-(10, 8, 4),
-(11, 8, 6),
-(12, 9, 8),
-(13, 10, 8),
-(14, 10, 6),
-(15, 11, 8),
-(16, 11, 7),
-(17, 12, 8),
-(18, 12, 7),
-(19, 13, 1),
-(20, 13, 6),
-(21, 14, 1),
-(22, 14, 6),
-(23, 16, 1),
-(24, 16, 6),
-(25, 15, 1),
-(26, 17, 7);
+(5, 3, 4),
+(8, 4, 4),
+(9, 4, 6),
+(10, 5, 5),
+(11, 6, 5),
+(12, 7, 8),
+(13, 8, 8),
+(14, 9, 8),
+(15, 9, 7),
+(16, 10, 7),
+(17, 10, 8),
+(18, 8, 6),
+(19, 11, 6),
+(20, 11, 1),
+(21, 12, 1),
+(22, 12, 6),
+(23, 13, 1),
+(24, 14, 1),
+(25, 14, 6),
+(26, 15, 7),
+(27, 16, 2);
 
 -- --------------------------------------------------------
 
@@ -208,18 +239,16 @@ CREATE TABLE `pokemon` (
 --
 
 INSERT INTO `pokemon` (`id`, `name`) VALUES
-(1, 'Pikachu'),
-(2, 'Squirtle'),
-(3, 'Bulbasaur'),
-(4, 'Charmander'),
-(5, 'Caterpie'),
-(6, 'Weedle'),
-(7, 'Pidgey'),
-(8, 'Rattata'),
-(9, 'Spearow'),
-(10, 'Ekans'),
-(11, 'Kar'),
-(12, 'Luchotrolo');
+(1, 'Bulbasaur'),
+(2, 'Charmander'),
+(3, 'Squirtle'),
+(4, 'Caterpie'),
+(5, 'Weedle'),
+(6, 'Pidgey'),
+(7, 'Rattata'),
+(8, 'Spearow'),
+(9, 'Ekans'),
+(10, 'Pikachu');
 
 -- --------------------------------------------------------
 
@@ -239,8 +268,18 @@ CREATE TABLE `pokemon_abilities` (
 
 INSERT INTO `pokemon_abilities` (`pokemon_abilities`, `idPkm`, `idAbilitie`) VALUES
 (1, 1, 1),
-(9, 11, 12),
-(10, 12, 13);
+(2, 2, 4),
+(3, 3, 7),
+(4, 4, 10),
+(5, 5, 10),
+(6, 6, 19),
+(7, 6, 20),
+(8, 7, 25),
+(9, 7, 26),
+(10, 8, 19),
+(11, 9, 16),
+(12, 9, 32),
+(13, 10, 35);
 
 -- --------------------------------------------------------
 
@@ -259,24 +298,20 @@ CREATE TABLE `pokemon_type` (
 --
 
 INSERT INTO `pokemon_type` (`id`, `idPkm`, `idType`) VALUES
-(1, 4, 4),
-(2, 3, 3),
-(3, 1, 2),
-(4, 2, 5),
+(1, 1, 3),
+(2, 1, 7),
+(3, 2, 4),
+(4, 3, 5),
+(5, 4, 8),
 (6, 5, 8),
-(7, 6, 8),
-(8, 6, 7),
-(9, 7, 6),
+(7, 5, 7),
+(8, 6, 1),
+(9, 6, 6),
 (10, 7, 1),
 (11, 8, 1),
-(12, 9, 1),
-(13, 9, 6),
-(14, 10, 7),
-(17, 12, 7),
-(18, 11, 1),
-(22, 3, 7),
-(24, 12, 1),
-(25, 12, 6);
+(12, 8, 6),
+(13, 9, 7),
+(14, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -321,12 +356,16 @@ CREATE TABLE `user_pokemons` (
 --
 
 INSERT INTO `user_pokemons` (`id`, `idCliente`, `idPokemon`, `lvlFound`) VALUES
-(1, 1, 1, 6),
+(1, 1, 1, 5),
 (2, 1, 2, 4),
-(3, 2, 3, 7),
-(4, 2, 4, 5),
-(5, 1, 4, 0),
-(6, 1, 7, 0);
+(3, 1, 3, 2),
+(4, 1, 4, 6),
+(5, 1, 5, 5),
+(6, 2, 6, 2),
+(7, 2, 7, 3),
+(8, 2, 8, 3),
+(9, 2, 9, 4),
+(10, 2, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -345,8 +384,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `user`, `password`) VALUES
-(1, 'test', 'test'),
-(2, 'carlos', 'profe');
+(1, 'user1', 'user1'),
+(2, 'user2', 'user2');
 
 --
 -- Índices para tablas volcadas
@@ -438,37 +477,37 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `abilities`
 --
 ALTER TABLE `abilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `evolution`
 --
 ALTER TABLE `evolution`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `evolution_abilities`
 --
 ALTER TABLE `evolution_abilities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `evolution_pkm`
 --
 ALTER TABLE `evolution_pkm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `evolution_type`
 --
 ALTER TABLE `evolution_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `pokemon`
 --
 ALTER TABLE `pokemon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `pokemon_abilities`
@@ -480,7 +519,7 @@ ALTER TABLE `pokemon_abilities`
 -- AUTO_INCREMENT de la tabla `pokemon_type`
 --
 ALTER TABLE `pokemon_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `type`
@@ -492,7 +531,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT de la tabla `user_pokemons`
 --
 ALTER TABLE `user_pokemons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
