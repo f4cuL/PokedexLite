@@ -95,6 +95,7 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
         btnRemoveEvolution = new javax.swing.JButton();
         btnAddAbilitie = new javax.swing.JButton();
         btnRemoveAbi = new javax.swing.JButton();
+        btnModifyEvolution = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -244,6 +245,13 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModifyEvolution.setText("Modify selected evolution");
+        btnModifyEvolution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModifyEvolutionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -280,7 +288,9 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddEvolution)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnRemoveEvolution))
+                                .addComponent(btnRemoveEvolution)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModifyEvolution))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddAbilitie)
                                 .addGap(18, 18, 18)
@@ -317,7 +327,8 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddEvolution)
-                    .addComponent(btnRemoveEvolution))
+                    .addComponent(btnRemoveEvolution)
+                    .addComponent(btnModifyEvolution))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
@@ -429,6 +440,7 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
        {      
           controlador.getModelo().setAuxEvo(controlador.getModelo().createObjectEvolution(tableModifyEvolution.getValueAt(fila,0).toString()));
           controlador.getNewEvolution().dispose();
+          controlador.getAllPokemonsModifyEvolution().dispose();
         } 
     }//GEN-LAST:event_tableModifyEvolutionMouseClicked
 
@@ -510,12 +522,24 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
        }
     }//GEN-LAST:event_btnRemoveAbiActionPerformed
 
+    private void btnModifyEvolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyEvolutionActionPerformed
+        controlador.getModelo().cargarTablaEvoType(controlador.getAllPokemonsModifyEvolution().getTableEvoType());
+        controlador.getModelo().cargarTablaEvoAbilities(controlador.getAllPokemonsModifyEvolution().getTableAbilitiesEvo());
+        if (!controlador.getAllPokemonsModifyEvolution().isVisible())
+        {
+            controlador.getAllPokemonsModifyEvolution().setVisible(true);
+            controlador.getPrincipal().getDesktop().add(controlador.getAllPokemonsModifyEvolution(),0);
+            controlador.getAllPokemonsModifyEvolution().getLblName().setText(controlador.getModelo().getAuxEvo().getName());
+        }
+    }//GEN-LAST:event_btnModifyEvolutionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAbilitie;
     private javax.swing.JButton btnAddEvolution;
     private javax.swing.JButton btnAddType;
     private javax.swing.JButton btnChangeName;
+    private javax.swing.JButton btnModifyEvolution;
     private javax.swing.JButton btnRemoveAbi;
     private javax.swing.JButton btnRemoveEvolution;
     private javax.swing.JButton btnRemoveType;

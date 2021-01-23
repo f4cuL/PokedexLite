@@ -9,7 +9,9 @@ import Modelo.Modelo;
 import Vista.Principal;
 import Vista.allPokemons;
 import Vista.allPokemonsAddType;
+import Vista.allPokemonsAddTypeEvo;
 import Vista.allPokemonsInfo;
+import Vista.allPokemonsModifyEvolution;
 import Vista.login;
 import Vista.myPokemons;
 import Vista.newAbilitie;
@@ -35,6 +37,25 @@ public class Controlador {
    private allPokemonsInfo allPokemonsInfo;
    private allPokemonsAddType allPokemonsAddType;
    private newAbilitie newAbilitie;
+   private allPokemonsModifyEvolution allPokemonsModifyEvolution;
+   private allPokemonsAddTypeEvo allPokemonsAddTypeEvo;
+
+    public allPokemonsAddTypeEvo getAllPokemonsAddTypeEvo() {
+        return allPokemonsAddTypeEvo;
+    }
+
+    public void setAllPokemonsAddTypeEvo(allPokemonsAddTypeEvo allPokemonsAddTypeEvo) {
+        this.allPokemonsAddTypeEvo = allPokemonsAddTypeEvo;
+    }
+   
+
+    public allPokemonsModifyEvolution getAllPokemonsModifyEvolution() {
+        return allPokemonsModifyEvolution;
+    }
+
+    public void setAllPokemonsModifyEvolution(allPokemonsModifyEvolution allPokemonsModifyEvolution) {
+        this.allPokemonsModifyEvolution = allPokemonsModifyEvolution;
+    }
 
     public newAbilitie getNewAbilitie() {
         return newAbilitie;

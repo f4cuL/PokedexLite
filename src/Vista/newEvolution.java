@@ -114,7 +114,6 @@ public class newEvolution extends javax.swing.JInternalFrame {
 
     private void btnAddEvoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEvoActionPerformed
         String name=controlador.getModelo().addEvolution();
-        System.out.println(name);
         int id= controlador.getModelo().getIdFromEvolutionName(name);
         if (controlador.getModelo().addEvolutionToPokemon(id))
         {

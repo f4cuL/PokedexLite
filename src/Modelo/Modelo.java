@@ -271,7 +271,7 @@ public class Modelo {
         return null;
     }
     
-      public Abilities createObjectAbilities(String name) {
+    public Abilities createObjectAbilities(String name) {
         String sql = "select a.id, a.name from abilities a where a.name='"+name+"'"; 
         try {
             Abilities abi = new Abilities();
@@ -476,23 +476,42 @@ public class Modelo {
         }
 
     }
-
-    public int getIdFromPokemonType(String name) {
-        String sql = "select id from type where name='" + name + "'";
+    
+    public void btnTypesEvo() {
+        String sql = "select name from type";
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = conexion.getConexion();
-        int id = 0;
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                id = rs.getInt("id");
+                controlador.getAllPokemonsAddTypeEvo().getTypeComboBox().addItem(rs.getString("name"));
             }
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        return (id);
+
+    }
+
+     public int getIdFromTypeName(String name) {
+        String sql = "select id from type where name='"+name+"'";
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection con = conexion.getConexion();
+        try {
+            ps = con.prepareStatement(sql);
+            rs= ps.executeQuery();
+            while (rs.next())
+            {
+             return (rs.getInt("id"));
+            }     
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+  
     }
 
     public boolean addType(int id) {
@@ -588,6 +607,22 @@ public class Modelo {
         return false;
     }
     
+    public boolean changeEvolutionName(int id) {
+        String sql = "update evolution e set e.name ='" + controlador.getAllPokemonsModifyEvolution().getTxtNewName().getText() + "' where e.id=" + id;
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareCall(sql);
+            ps.execute();
+            controlador.getAllPokemonsModifyEvolution().getLblName().setText(controlador.getAllPokemonsModifyEvolution().getTxtNewName().getText());
+            controlador.getAllPokemonsModifyEvolution().getTxtNewName().setText(null);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
     public int getIdFromEvolutionName(String name) {
         String sql = "select id from evolution where name='" + name + "'";
         PreparedStatement ps = null;
@@ -624,8 +659,7 @@ public class Modelo {
         return false;
     }
     
-    public boolean removeDatabaseEvolution(int id)
-    {
+    public boolean removeDatabaseEvolution(int id) {
         String sql="delete from evolution where id="+id;
         PreparedStatement ps = null;
         Connection con = conexion.getConexion();
@@ -638,8 +672,8 @@ public class Modelo {
         }
        return false;
     }
-     public boolean removeDatabaseAbilitie(int id)
-    {
+    
+    public boolean removeDatabaseAbilitie(int id) {
         String sql="delete from abilities where id="+id;
         PreparedStatement ps = null;
         Connection con = conexion.getConexion();

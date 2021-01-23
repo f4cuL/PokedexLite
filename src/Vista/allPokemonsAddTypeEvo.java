@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author facue
  */
-public class allPokemonsAddType extends javax.swing.JInternalFrame {
+public class allPokemonsAddTypeEvo extends javax.swing.JInternalFrame {
     private Controlador controlador;
 
     public Controlador getControlador() {
@@ -28,7 +28,7 @@ public class allPokemonsAddType extends javax.swing.JInternalFrame {
     /**
      * Creates new form allPokemonsAddType
      */
-    public allPokemonsAddType() {
+    public allPokemonsAddTypeEvo() {
         initComponents();
     }
 
@@ -116,15 +116,7 @@ public class allPokemonsAddType extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_typeComboBoxActionPerformed
 
     private void btnAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeActionPerformed
-        
-        if (controlador.getModelo().addType(controlador.getModelo().getIdFromTypeName(typeComboBox.getSelectedItem().toString())))
-        {
-            JOptionPane.showMessageDialog(null, "Type added");
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "No funca");
-        }
+   
         
     }//GEN-LAST:event_btnAddTypeActionPerformed
 
