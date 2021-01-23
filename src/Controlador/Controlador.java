@@ -15,6 +15,7 @@ import Vista.allPokemonsModifyEvolution;
 import Vista.login;
 import Vista.myPokemons;
 import Vista.newAbilitie;
+import Vista.newAbilitieEvo;
 import Vista.newEvolution;
 import Vista.newPokemon;
 import Vista.userEvolutionInfo;
@@ -39,6 +40,16 @@ public class Controlador {
    private newAbilitie newAbilitie;
    private allPokemonsModifyEvolution allPokemonsModifyEvolution;
    private allPokemonsAddTypeEvo allPokemonsAddTypeEvo;
+   private newAbilitieEvo newAbilitieEvo;
+
+    public newAbilitieEvo getNewAbilitieEvo() {
+        return newAbilitieEvo;
+    }
+
+    public void setNewAbilitieEvo(newAbilitieEvo newAbilitieEvo) {
+        this.newAbilitieEvo = newAbilitieEvo;
+    }
+   
 
     public allPokemonsAddTypeEvo getAllPokemonsAddTypeEvo() {
         return allPokemonsAddTypeEvo;

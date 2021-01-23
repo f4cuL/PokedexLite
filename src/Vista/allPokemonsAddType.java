@@ -29,6 +29,7 @@ public class allPokemonsAddType extends javax.swing.JInternalFrame {
      * Creates new form allPokemonsAddType
      */
     public allPokemonsAddType() {
+        this.setTitle("Add type pokemon");
         initComponents();
     }
 

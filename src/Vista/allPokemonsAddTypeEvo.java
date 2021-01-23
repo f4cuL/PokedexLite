@@ -29,6 +29,7 @@ public class allPokemonsAddTypeEvo extends javax.swing.JInternalFrame {
      * Creates new form allPokemonsAddType
      */
     public allPokemonsAddTypeEvo() {
+        this.setTitle("Add type evolution");
         initComponents();
     }
 
@@ -112,11 +113,12 @@ public class allPokemonsAddTypeEvo extends javax.swing.JInternalFrame {
     }
 
     private void typeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeComboBoxActionPerformed
-  
+     
     }//GEN-LAST:event_typeComboBoxActionPerformed
 
     private void btnAddTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeActionPerformed
-   
+    
+      controlador.getModelo().addTypeToEvolution(controlador.getModelo().getIdFromTypeName(typeComboBox.getSelectedItem().toString()));   
         
     }//GEN-LAST:event_btnAddTypeActionPerformed
 

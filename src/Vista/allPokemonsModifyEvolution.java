@@ -8,6 +8,7 @@ package Vista;
 import Controlador.Controlador;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -53,6 +54,7 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
      * Creates new form allPokemonsModifyEvolution
      */
     public allPokemonsModifyEvolution() {
+        this.setTitle("Modify Evolution");
         initComponents();
     }
 
@@ -94,6 +96,7 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
         tableAbilitiesEvo = new javax.swing.JTable();
         btnAddTypeEvo = new javax.swing.JButton();
         btnRemoveType = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -105,6 +108,11 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
                 "Name"
             }
         ));
+        tableEvoType.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableEvoTypeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableEvoType);
 
         jLabel1.setText("Name:");
@@ -132,6 +140,11 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
                 "Name"
             }
         ));
+        tableAbilitiesEvo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableAbilitiesEvoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableAbilitiesEvo);
 
         btnAddTypeEvo.setText("Add type");
@@ -142,6 +155,18 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
         });
 
         btnRemoveType.setText("Remove selected type");
+        btnRemoveType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveTypeActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Add abilitie");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,7 +195,8 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAddTypeEvo)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnRemoveType)))
+                                .addComponent(btnRemoveType))
+                            .addComponent(jButton1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -196,11 +222,13 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddTypeEvo)
                     .addComponent(btnRemoveType))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(5, 5, 5))
         );
 
         pack();
@@ -219,11 +247,56 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnAddTypeEvoActionPerformed
 
+    private void tableEvoTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEvoTypeMouseClicked
+    int fila = tableEvoType.getSelectedRow();
+    if (fila==-1)
+    {
+        JOptionPane.showMessageDialog(null, "Error");
+    }
+    else
+    {
+        String name = tableEvoType.getValueAt(fila,0).toString();
+        controlador.getModelo().setAuxType(controlador.getModelo().createTypeObject(name));
+        System.out.println(controlador.getModelo().getAuxType().getName());
+    }        
+    }//GEN-LAST:event_tableEvoTypeMouseClicked
 
+    private void btnRemoveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveTypeActionPerformed
+       if (controlador.getModelo().removeTypeEvo(controlador.getModelo().getAuxType().getId()))
+       {
+           JOptionPane.showMessageDialog(null, "Removed");
+       }
+    }//GEN-LAST:event_btnRemoveTypeActionPerformed
+
+    private void tableAbilitiesEvoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAbilitiesEvoMouseClicked
+      int fila = tableAbilitiesEvo.getSelectedRow();
+    if (fila==-1)
+    {
+        JOptionPane.showMessageDialog(null, "Error");
+    }
+    else
+    {
+        String name = tableAbilitiesEvo.getValueAt(fila,0).toString();
+        controlador.getModelo().setAuxAbi(controlador.getModelo().createObjectAbilities(name));
+        System.out.println(controlador.getModelo().getAuxAbi().getName());
+        controlador.getNewAbilitieEvo().dispose();
+    }    
+    }//GEN-LAST:event_tableAbilitiesEvoMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (!controlador.getNewAbilitieEvo().isVisible())
+        {
+            controlador.getNewAbilitieEvo().setVisible(true);
+            controlador.getPrincipal().getDesktop().add(controlador.getNewAbilitieEvo(),0);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddTypeEvo;
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnRemoveType;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
