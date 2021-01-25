@@ -147,6 +147,7 @@ private Controlador controlador;
            int id= Integer.parseInt(tablaMyPkn.getValueAt(fila,0).toString());
            controlador.getModelo().setAuxPokemon(controlador.getModelo().createPokemonObject(id));
            controlador.getUserPokemonInfo().dispose();
+           controlador.getUserEvolutionInfo().dispose();
         }  
     }//GEN-LAST:event_tablaMyPknMouseClicked
 
