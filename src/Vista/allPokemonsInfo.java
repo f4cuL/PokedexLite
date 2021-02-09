@@ -20,6 +20,7 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
 
     @Override
     public void dispose() {
+        controlador.getModelo().setAuxPokemon(null);
         controlador.getModelo().setAuxEvo(null);
         controlador.getModelo().setAuxAbi(null);
         super.dispose();
@@ -424,6 +425,8 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
         if (controlador.getModelo().changePokemonName(controlador.getModelo().getAuxPokemon().getId()))
         {
             JOptionPane.showMessageDialog(null, "Name changed");
+            controlador.getModelo().limpiarTabla(controlador.getAllPokemons().getTablaAllPkm());
+            controlador.getModelo().listAllPokemons(controlador.getAllPokemons().getTablaAllPkm());
         }
         else
         {
@@ -446,9 +449,9 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
        }
        else
        {      
-          controlador.getModelo().setAuxEvo(controlador.getModelo().createObjectEvolution(tableModifyEvolution.getValueAt(fila,0).toString()));
           controlador.getNewEvolution().dispose();
           controlador.getAllPokemonsModifyEvolution().dispose();
+          controlador.getModelo().setAuxEvo(controlador.getModelo().createObjectEvolution(tableModifyEvolution.getValueAt(fila,0).toString()));
         } 
     }//GEN-LAST:event_tableModifyEvolutionMouseClicked
 
@@ -477,8 +480,8 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
          JOptionPane.showMessageDialog(null, "Error");
      }
      else{
-         controlador.getModelo().setAuxAbi(controlador.getModelo().createObjectAbilities(tableModifyAbilities.getValueAt(fila, 0).toString()));
          controlador.getNewAbilitie().dispose();
+         controlador.getModelo().setAuxAbi(controlador.getModelo().createObjectAbilities(tableModifyAbilities.getValueAt(fila, 0).toString()));
          
      }
     }//GEN-LAST:event_tableModifyAbilitiesMouseClicked

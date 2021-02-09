@@ -19,6 +19,13 @@ import javax.swing.JTextField;
 public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
     private Controlador controlador;
 
+    @Override
+    public void dispose() {
+        controlador.getModelo().setAuxEvo(null);
+        controlador.getModelo().setAuxAbi(null);
+        controlador.getModelo().setAuxType(null);
+        super.dispose();
+    }
     public JTable getTableEvoType() {
         return tableEvoType;
     }
@@ -249,6 +256,8 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         controlador.getModelo().changeEvolutionName(controlador.getModelo().getAuxEvo().getId());
+        controlador.getModelo().limpiarTabla(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+        controlador.getModelo().cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
     }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnAddTypeEvoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTypeEvoActionPerformed
@@ -275,10 +284,13 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tableEvoTypeMouseClicked
 
     private void btnRemoveTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveTypeActionPerformed
-       if (controlador.getModelo().removeTypeEvo(controlador.getModelo().getAuxType().getId()))
+
+        if (controlador.getModelo().removeTypeEvo(controlador.getModelo().getAuxType().getId()))
        {
-           JOptionPane.showMessageDialog(null, "Removed");
-       }
+        JOptionPane.showMessageDialog(null, "Removed");
+        controlador.getModelo().setAuxType(null);   
+       }    
+
     }//GEN-LAST:event_btnRemoveTypeActionPerformed
 
     private void tableAbilitiesEvoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableAbilitiesEvoMouseClicked
@@ -304,11 +316,16 @@ public class allPokemonsModifyEvolution extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       if(controlador.getModelo().removeAbilitieEvo(controlador.getModelo().getAuxEvo().getId(),controlador.getModelo().getAuxAbi().getId()))
-       {
-           JOptionPane.showMessageDialog(null, "Removed");
-           controlador.getModelo().removeDatabaseAbilitie(controlador.getModelo().getAuxAbi().getId());
-       }
+        try {
+            if (controlador.getModelo().removeAbilitieEvo(controlador.getModelo().getAuxEvo().getId(), controlador.getModelo().getAuxAbi().getId())) {
+                JOptionPane.showMessageDialog(null, "Removed");
+                controlador.getModelo().removeDatabaseAbilitie(controlador.getModelo().getAuxAbi().getId());
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Abilitie not selected");
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
  
