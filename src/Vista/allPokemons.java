@@ -15,6 +15,14 @@ import javax.swing.JTable;
  */
 public class allPokemons extends javax.swing.JInternalFrame {
     Controlador controlador;
+    
+    
+    @Override
+    public void dispose() {
+        controlador.getModelo().setAuxPokemon(null);
+        super.dispose();
+    }
+    
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
@@ -138,14 +146,18 @@ public class allPokemons extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         if (!controlador.getAllPokemonsInfo().isVisible())
-        {
-        controlador.getAllPokemonsInfo().getLblNameModify().setText(controlador.getModelo().getAuxPokemon().getName());
-        controlador.getModelo().cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
-        controlador.getModelo().cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
-        controlador.getModelo().cargarTablaAbilities(controlador.getAllPokemonsInfo().getTableModifyAbilities());
-        controlador.getAllPokemonsInfo().setVisible(true);
-        controlador.getPrincipal().getDesktop().add(controlador.getAllPokemonsInfo(),0);
+        if (!controlador.getAllPokemonsInfo().isVisible()) {
+            try {
+                controlador.getAllPokemonsInfo().getLblNameModify().setText(controlador.getModelo().getAuxPokemon().getName());
+                controlador.getModelo().cargarTablaType(controlador.getAllPokemonsInfo().getTableModifyType());
+                controlador.getModelo().cargarTablaEvolutions(controlador.getAllPokemonsInfo().getTableModifyEvolution());
+                controlador.getModelo().cargarTablaAbilities(controlador.getAllPokemonsInfo().getTableModifyAbilities());
+                controlador.getAllPokemonsInfo().setVisible(true);
+                controlador.getPrincipal().getDesktop().add(controlador.getAllPokemonsInfo(), 0);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error: Pokemon not selected");
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

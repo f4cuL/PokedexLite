@@ -16,6 +16,12 @@ import javax.swing.JTable;
 public class userEvolutionInfo extends javax.swing.JInternalFrame {
     private Controlador controlador;
 
+    @Override
+    public void dispose() {
+        controlador.getModelo().setAuxEvo(null);
+        super.dispose();
+    }
+    
     public Controlador getControlador() {
         return controlador;
     }

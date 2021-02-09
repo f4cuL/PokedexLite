@@ -16,6 +16,12 @@ import javax.swing.JTable;
  */
 public class userPokemonInfo extends javax.swing.JInternalFrame {
 
+    @Override
+    public void dispose() {
+        controlador.getModelo().setAuxPokemon(null);
+        super.dispose();
+    }
+    
     public JTable getTablaEvolution() {
         return tablaEvolution;
     }
@@ -214,13 +220,18 @@ public class userPokemonInfo extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       if(!controlador.getUserEvolutionInfo().isVisible())
-        {
-        controlador.getUserEvolutionInfo().getLblEvolutionName().setText(controlador.getModelo().getAuxEvo().getName());
-        controlador.getModelo().cargarTablaEvoType(controlador.getUserEvolutionInfo().getTableEvoType());
-        controlador.getModelo().cargarTablaEvoAbilities(controlador.getUserEvolutionInfo().getTableEvoAbilities());
-        controlador.getUserEvolutionInfo().setVisible(true);
-        controlador.getPrincipal().getDesktop().add(controlador.getUserEvolutionInfo(),0);
+        try {
+            if (!controlador.getUserEvolutionInfo().isVisible()) {
+                controlador.getUserEvolutionInfo().getLblEvolutionName().setText(controlador.getModelo().getAuxEvo().getName());
+                controlador.getModelo().cargarTablaEvoType(controlador.getUserEvolutionInfo().getTableEvoType());
+                controlador.getModelo().cargarTablaEvoAbilities(controlador.getUserEvolutionInfo().getTableEvoAbilities());
+                controlador.getUserEvolutionInfo().setVisible(true);
+                controlador.getPrincipal().getDesktop().add(controlador.getUserEvolutionInfo(), 0);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Evolution not selected");
+
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

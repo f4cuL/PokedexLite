@@ -18,6 +18,13 @@ import javax.swing.JTextField;
  */
 public class allPokemonsInfo extends javax.swing.JInternalFrame {
 
+    @Override
+    public void dispose() {
+        controlador.getModelo().setAuxEvo(null);
+        controlador.getModelo().setAuxAbi(null);
+        super.dispose();
+    }
+    
     private Controlador controlador;
 
     public Controlador getControlador() {
@@ -447,17 +454,21 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
 
     private void btnRemoveEvolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveEvolutionActionPerformed
         
-        int idpkm=controlador.getModelo().getAuxPokemon().getId();
-        int idevo=controlador.getModelo().getAuxEvo().getId();
-        if (controlador.getModelo().removeEvolution(idevo, idpkm))
-        {
-            controlador.getModelo().removeDatabaseEvolution(idevo);
-            JOptionPane.showMessageDialog(null, "Deleted");
+        try {
+            int idpkm = controlador.getModelo().getAuxPokemon().getId();
+            int idevo = controlador.getModelo().getAuxEvo().getId();
+            if (controlador.getModelo().removeEvolution(idevo, idpkm)) {
+                controlador.getModelo().removeDatabaseEvolution(idevo);
+                JOptionPane.showMessageDialog(null, "Deleted");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error: Evolution not selected");
+
         }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Error");
-        }
+
     }//GEN-LAST:event_btnRemoveEvolutionActionPerformed
 
     private void tableModifyAbilitiesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableModifyAbilitiesMouseClicked
@@ -513,25 +524,31 @@ public class allPokemonsInfo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddAbilitieActionPerformed
 
     private void btnRemoveAbiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAbiActionPerformed
-       if (controlador.getModelo().removeAbilitie(controlador.getModelo().getAuxPokemon().getId(),controlador.getModelo().getAuxAbi().getId())){
-           JOptionPane.showMessageDialog(null, "Deleted");
-           controlador.getModelo().removeDatabaseAbilitie(controlador.getModelo().getAuxAbi().getId());
-       }    
-       else
-       {
-           JOptionPane.showMessageDialog(null, "Error");
-       }
+        try {
+            if (controlador.getModelo().removeAbilitie(controlador.getModelo().getAuxPokemon().getId(), controlador.getModelo().getAuxAbi().getId())) {
+                JOptionPane.showMessageDialog(null, "Deleted");
+                controlador.getModelo().removeDatabaseAbilitie(controlador.getModelo().getAuxAbi().getId());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Abilitie not selected");
+        }
+
     }//GEN-LAST:event_btnRemoveAbiActionPerformed
 
     private void btnModifyEvolutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifyEvolutionActionPerformed
-        controlador.getModelo().cargarTablaEvoType(controlador.getAllPokemonsModifyEvolution().getTableEvoType());
-        controlador.getModelo().cargarTablaEvoAbilities(controlador.getAllPokemonsModifyEvolution().getTableAbilitiesEvo());
-        if (!controlador.getAllPokemonsModifyEvolution().isVisible())
-        {
-            controlador.getAllPokemonsModifyEvolution().setVisible(true);
-            controlador.getPrincipal().getDesktop().add(controlador.getAllPokemonsModifyEvolution(),0);
-            controlador.getAllPokemonsModifyEvolution().getLblName().setText(controlador.getModelo().getAuxEvo().getName());
+
+        try {
+            controlador.getModelo().cargarTablaEvoType(controlador.getAllPokemonsModifyEvolution().getTableEvoType());
+            controlador.getModelo().cargarTablaEvoAbilities(controlador.getAllPokemonsModifyEvolution().getTableAbilitiesEvo());
+            if (!controlador.getAllPokemonsModifyEvolution().isVisible()) {
+                controlador.getAllPokemonsModifyEvolution().setVisible(true);
+                controlador.getPrincipal().getDesktop().add(controlador.getAllPokemonsModifyEvolution(), 0);
+                controlador.getAllPokemonsModifyEvolution().getLblName().setText(controlador.getModelo().getAuxEvo().getName());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Evolution not selected");
         }
+
     }//GEN-LAST:event_btnModifyEvolutionActionPerformed
 
 

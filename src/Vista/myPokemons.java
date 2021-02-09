@@ -17,6 +17,13 @@ import javax.swing.JTable;
 public class myPokemons extends javax.swing.JInternalFrame {
 private Controlador controlador; 
 
+
+    @Override
+    public void dispose() {
+        controlador.getModelo().setAuxPokemon(null);
+        super.dispose();
+    }
+    
     public JTable getTablaMyPkn() {
         return tablaMyPkn;
     }
@@ -128,14 +135,18 @@ private Controlador controlador;
 
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
 
-        if (!controlador.getUserPokemonInfo().isVisible())
-        {
+        try {
+                    if (!controlador.getUserPokemonInfo().isVisible())
+        {     
         controlador.getUserPokemonInfo().getLblName().setText(controlador.getModelo().getAuxPokemon().getName());
         controlador.getModelo().cargarTablaType(controlador.getUserPokemonInfo().getTableType());
         controlador.getModelo().cargarTablaEvolutions(controlador.getUserPokemonInfo().getTablaEvolution());
         controlador.getModelo().cargarTablaAbilities(controlador.getUserPokemonInfo().getTablaAbilities());
         controlador.getUserPokemonInfo().setVisible(true);
         controlador.getPrincipal().getDesktop().add(controlador.getUserPokemonInfo(),0);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Pokemon not selected");
         }
     }//GEN-LAST:event_btnInfoActionPerformed
 
@@ -145,9 +156,10 @@ private Controlador controlador;
            JOptionPane.showMessageDialog(null,"Usuario no seleccionado");
        }else{
            int id= Integer.parseInt(tablaMyPkn.getValueAt(fila,0).toString());
-           controlador.getModelo().setAuxPokemon(controlador.getModelo().createPokemonObject(id));
+           System.out.println(controlador.getModelo().getAuxPokemon());
            controlador.getUserPokemonInfo().dispose();
            controlador.getUserEvolutionInfo().dispose();
+           controlador.getModelo().setAuxPokemon(controlador.getModelo().createPokemonObject(id));
         }  
     }//GEN-LAST:event_tablaMyPknMouseClicked
 
