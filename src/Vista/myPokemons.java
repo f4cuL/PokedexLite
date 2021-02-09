@@ -51,6 +51,7 @@ private Controlador controlador;
     /**
      * Creates new form myPokemons
      */
+    
     public myPokemons() {
         this.setTitle("My pokemons");
         initComponents();

@@ -6,10 +6,12 @@
 package Modelo;
 
 import Controlador.Controlador;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -71,6 +73,29 @@ public class Modelo {
 
     public void setControlador(Controlador controlador) {
         this.controlador = controlador;
+    }
+    
+    public List<String> verifyPokemonInfoByName(String name)
+    {
+        List<String> resultado = new ArrayList<String>();
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql= "select p.name, t.name from pokemon p inner join pokemon_type pt on p.id=pt.idPkm inner join type t on pt.idType = t.id where p.name='"+name+"'";
+        try {
+            ps=con.prepareStatement(sql);
+            rs= ps.executeQuery();
+            while (rs.next())
+            {
+               resultado.add(rs.getString("p.name"));
+               resultado.add(rs.getString("t.name"));
+            }
+            return resultado;
+        } catch (Exception e) {
+            System.out.println(e);
+            
+        }
+        return null;
     }
 
     public int verifyLogin(Users user) {
@@ -137,6 +162,25 @@ public class Modelo {
         }
     }
 
+        public int listAllPokemons() {
+        String sql = "select count(*) as cantidad from pokemon";
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery(sql);
+            while (rs.next())
+            {
+             return rs.getInt("cantidad");
+            }
+                 
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
+    
     public void limpiarTabla(JTable tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             DefaultTableModel tabla2 = (DefaultTableModel) tabla.getModel();
