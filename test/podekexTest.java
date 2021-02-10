@@ -42,7 +42,6 @@ public class podekexTest {
         int totalPokemons = model.listAllPokemons();
         assertEquals(expected, totalPokemons);
         System.out.println("Total pokemons= " +totalPokemons);
-        separador();
     }
     @Test
     public void testGetPokemonByName()
@@ -62,8 +61,7 @@ public class podekexTest {
         
         System.out.println("Nombre del pokemon: "+pok.getName());
         System.out.println("Nombre de tipo: "+ty.getName());
-            
-        separador();
+
     }
     @Test
     public void testGetPokemonEvolutionsAndAbilities()
@@ -82,8 +80,7 @@ public class podekexTest {
         System.out.println("Nombre evolución: " +evolutions.get(0));
         System.out.println("Nivel evolución: " +evolutions.get(1));
         System.out.println("Nombre Habilidades: " +evolutions.get(2));
-        
-        separador();
+
     }
     @Test
      public void testEvolutionTypeAndAbilities()
@@ -111,8 +108,7 @@ public class podekexTest {
         System.out.println("Nivel evolución: " +res.get(3));
         System.out.println("Tipo evolucion: " +res.get(4));
         System.out.println("Nombre Habilidades: " +res.get(5));
-        
-        separador();
+
     }
     @Test
     public void testAddAndRetrievePokemon()
@@ -131,7 +127,6 @@ public class podekexTest {
         System.out.println("Eliminando pokemon de test");
         System.out.println("¿El pokemon está en la base de datos?: " + model.returnPokemonByName("testPokemon"));
 
-        separador();
     }
     @Test
     public void testChangeName() {
@@ -150,7 +145,7 @@ public class podekexTest {
         System.out.println("¿El pokemon Pikachu ahora se llama Kachupi?: "+ model.returnPokemonByName("Kachupi"));
         System.out.println("¿El pokemon ahora se llama Pikachu?: "+ model.returnPokemonByName("Pikachu"));
         
-        separador();
+
         
     }
 
@@ -180,6 +175,7 @@ public class podekexTest {
         evo.setName(null);
         ty.setId(0);
         ty.setName(null);
+        separador();
         
     }
     public void separador()
