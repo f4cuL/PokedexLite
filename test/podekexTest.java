@@ -86,10 +86,14 @@ public class podekexTest {
     {
         System.out.println("podekexTest.testAddAndRetrievePokemon()");
         model.addPokemonByName("testPokemon");
+        
         boolean expected = true;
+        
         System.out.println("El pokemon añadido es: testPokemon");
         System.out.println("¿El pokemon está en la base de datos?: " + model.returnPokemonByName("testPokemon"));
+        
         assertEquals(expected, model.returnPokemonByName("testPokemon"));
+        
         model.borrarPokemon("testPokemon");
         System.out.println("Eliminando pokemon de test");
         System.out.println("¿El pokemon está en la base de datos?: " + model.returnPokemonByName("testPokemon"));
@@ -102,8 +106,14 @@ public class podekexTest {
         model.changePokemonName("Pikachu", "Kachupi");
         System.out.println("¿El pokemon Pikachu ahora se llama Kachupi?: "+ model.returnPokemonByName("Kachupi"));
         System.out.println("¿El pokemon aún se llama Pikachu?: "+ model.returnPokemonByName("Pikachu"));
+        
+        boolean expectedNameStatus = true;
+        assertEquals(expectedNameStatus, model.returnPokemonByName("Kachupi"));
+        
         System.out.println("Deshaciendo cambios..");
+        
         model.changePokemonName("Kachupi", "Pikachu");
+        
         System.out.println("¿El pokemon Pikachu ahora se llama Kachupi?: "+ model.returnPokemonByName("Kachupi"));
         System.out.println("¿El pokemon ahora se llama Pikachu?: "+ model.returnPokemonByName("Pikachu"));
         
