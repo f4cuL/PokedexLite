@@ -180,10 +180,10 @@ public class Modelo {
         return 0;
     }
 
-    public List<String> cargarEvolutionsByName(String name) {
+    public List<String> cargarEvolutionsByNameAndAbilities(String name) {
         List<String> lstEvolutions = new ArrayList<String>();
-        String sql = "select e.name, e.lvlEvolve from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
-                + "inner join pokemon p on p.id=ep.idPkm where p.name='" + name + "'";
+        String sql = "select e.name, e.lvlEvolve, a.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
+                + "inner join pokemon p on p.id=ep.idPkm inner join pokemon_abilities pa on pa.idPkm=p.id inner join abilities a on pa.idAbilitie=a.id where p.name='" + name + "'";
         int i = 0;
         try {
             PreparedStatement ps = null;
@@ -196,7 +196,29 @@ public class Modelo {
                     lstEvolutions.add(rs.getString("e.name"));
                 }
                 lstEvolutions.add(rs.getString("e.lvlEvolve"));
+                lstEvolutions.add(rs.getString("a.name"));
                 i++;
+            }
+            return lstEvolutions;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+        public List<String> EvolutionsTypeAndAbilities(String name) {
+        List<String> lstEvolutions = new ArrayList<String>();
+        String sql = "select e.name, t.name, a.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo inner join evolution_type et on et.idEvo = e.id inner join "
+                + " type t on t.id = et.idType inner join evolution_abilities ea on ea.idEvo = e.id inner join abilities a on a.id=ea.idAbilitie inner join pokemon p on ep.idPkm = p.id where p.name='"+name+"'";
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                lstEvolutions.add(rs.getString("e.name"));
+                lstEvolutions.add(rs.getString("t.name"));
+                lstEvolutions.add(rs.getString("a.name"));
             }
             return lstEvolutions;
         } catch (SQLException e) {

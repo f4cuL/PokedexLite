@@ -9,6 +9,7 @@ import Modelo.Evolution;
 import Modelo.Modelo;
 import Modelo.Pokemon;
 import Modelo.Type;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -65,19 +66,51 @@ public class podekexTest {
         separador();
     }
     @Test
-    public void testGetPokemonEvolutions()
+    public void testGetPokemonEvolutionsAndAbilities()
     {
-        System.out.println("podekexTest.testGetPokemonEvolutions()");
-        List<String> evolutions = new ArrayList<String>(model.cargarEvolutionsByName("Pikachu"));
+        System.out.println("podekexTest.testGetPokemonEvolutionsAndAbilities()");
+        List<String> evolutions = new ArrayList<String>(model.cargarEvolutionsByNameAndAbilities("Pikachu"));
         String expectedName = "Raichu";
         String expectedLvl = "16";
+        String expectedAbilitie = "Static";
         
         assertEquals(expectedName, evolutions.get(0));
         assertEquals(expectedLvl, evolutions.get(1));
+        assertEquals(expectedAbilitie, evolutions.get(2));
         
         System.out.println("Nombre Pokemon: Pikachu");
         System.out.println("Nombre evolución: " +evolutions.get(0));
         System.out.println("Nivel evolución: " +evolutions.get(1));
+        System.out.println("Nombre Habilidades: " +evolutions.get(2));
+        
+        separador();
+    }
+    @Test
+     public void testEvolutionTypeAndAbilities()
+    {
+        System.out.println("podekexTest.testEvolutionTypeAndAbilities()");
+        List<String> res = new ArrayList<String>(model.EvolutionsTypeAndAbilities("Bulbasaur"));
+        String expectedName = "Ivysaur";
+        String expectedType = "plant";
+        String expectedAbilitie = "Overgrow";
+        String expectedName2 = "Venusaur";
+        String expectedType2 = "plant";
+        String expectedAbilitie2 = "Overgrow";
+        
+        assertEquals(expectedName, res.get(0));
+        assertEquals(expectedType, res.get(1));
+        assertEquals(expectedAbilitie, res.get(2));
+        assertEquals(expectedName2, res.get(3));
+        assertEquals(expectedType2, res.get(4));
+        assertEquals(expectedAbilitie2, res.get(5));
+        
+        System.out.println("Nombre pokemon: Bulbasaur");
+        System.out.println("Nombre evolución: " +res.get(0));
+        System.out.println("Tipo evolución: " +res.get(1));
+        System.out.println("Nombre Habilidades: " +res.get(2));
+        System.out.println("Nivel evolución: " +res.get(3));
+        System.out.println("Tipo evolucion: " +res.get(4));
+        System.out.println("Nombre Habilidades: " +res.get(5));
         
         separador();
     }
