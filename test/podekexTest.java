@@ -91,6 +91,8 @@ public class podekexTest {
         System.out.println("¿El pokemon está en la base de datos?: " + model.returnPokemonByName("testPokemon"));
         assertEquals(expected, model.returnPokemonByName("testPokemon"));
         model.borrarPokemon("testPokemon");
+        System.out.println("Eliminando pokemon de test");
+        System.out.println("¿El pokemon está en la base de datos?: " + model.returnPokemonByName("testPokemon"));
 
         separador();
     }
