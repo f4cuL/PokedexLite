@@ -67,49 +67,60 @@ public class podekexTest {
     public void testGetPokemonEvolutionsAndAbilities()
     {
         System.out.println("podekexTest.testGetPokemonEvolutionsAndAbilities()");
-        List<String> evolutions = new ArrayList<String>(model.cargarEvolutionsByNameAndAbilities("Pikachu"));
+        List<String> type = new ArrayList<String>(model.getEvolutions("Pikachu"));
+        List<String> abilities = new ArrayList<String>(model.getAbilities("Pikachu"));
+        for (String i : type)
+        {
+            System.out.println(i);
+        }
+        for (String i : abilities)
+        {
+            System.out.println(i);
+        }
         String expectedName = "Raichu";
-        String expectedLvl = "16";
         String expectedAbilitie = "Static";
         
-        assertEquals(expectedName, evolutions.get(0));
-        assertEquals(expectedLvl, evolutions.get(1));
-        assertEquals(expectedAbilitie, evolutions.get(2));
         
-        System.out.println("Nombre Pokemon: Pikachu");
-        System.out.println("Nombre evolución: " +evolutions.get(0));
-        System.out.println("Nivel evolución: " +evolutions.get(1));
-        System.out.println("Nombre Habilidades: " +evolutions.get(2));
+        
+        assertEquals(expectedName, type.get(0));
+        assertEquals(expectedAbilitie, abilities.get(0));
+       
 
     }
+    
     @Test
      public void testEvolutionTypeAndAbilities()
     {
         System.out.println("podekexTest.testEvolutionTypeAndAbilities()");
-        List<String> res = new ArrayList<String>(model.EvolutionsTypeAndAbilities("Bulbasaur"));
-        String expectedName = "Ivysaur";
-        String expectedType = "plant";
-        String expectedAbilitie = "Overgrow";
-        String expectedName2 = "Venusaur";
-        String expectedType2 = "plant";
-        String expectedAbilitie2 = "Overgrow";
+        List<String> res = new ArrayList<String>(model.EvolutionsType("Pikachu"));
+        List<String> resAbi = new ArrayList<String>(model.EvolutionsAbiltiies("Pikachu"));
+        int cont=0;
+        for (String i : res)
+        {
+            if(cont==0){
+                System.out.printf("Nombre pokemon: ");
+            }
+            System.out.println(i);
+            cont++;
+        }
+         for (String i : resAbi)
+        {
+            System.out.println(i);
+        }
+        
+        String expectedName = "Raichu";
+        String expectedType = "electric";
+        String expectedAbilitie = "Static";
+        String expectedLevel ="16";
         
         assertEquals(expectedName, res.get(0));
         assertEquals(expectedType, res.get(1));
-        assertEquals(expectedAbilitie, res.get(2));
-        assertEquals(expectedName2, res.get(3));
-        assertEquals(expectedType2, res.get(4));
-        assertEquals(expectedAbilitie2, res.get(5));
-        
-        System.out.println("Nombre pokemon: Bulbasaur");
-        System.out.println("Nombre evolución: " +res.get(0));
-        System.out.println("Tipo evolución: " +res.get(1));
-        System.out.println("Nombre Habilidades: " +res.get(2));
-        System.out.println("Nivel evolución: " +res.get(3));
-        System.out.println("Tipo evolucion: " +res.get(4));
-        System.out.println("Nombre Habilidades: " +res.get(5));
+        assertEquals(expectedLevel, res.get(2));
+        assertEquals(expectedAbilitie, resAbi.get(0));
+
 
     }
+    
     @Test
     public void testAddAndRetrievePokemon()
     {

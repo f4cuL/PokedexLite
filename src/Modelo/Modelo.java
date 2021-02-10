@@ -180,11 +180,12 @@ public class Modelo {
         return 0;
     }
 
-    public List<String> cargarEvolutionsByNameAndAbilities(String name) {
-        List<String> lstEvolutions = new ArrayList<String>();
-        String sql = "select e.name, e.lvlEvolve, a.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
-                + "inner join pokemon p on p.id=ep.idPkm inner join pokemon_abilities pa on pa.idPkm=p.id inner join abilities a on pa.idAbilitie=a.id where p.name='" + name + "'";
-        int i = 0;
+       public List<String> EvolutionsAbiltiies(String name) {
+        List <String> res = new ArrayList<String>();
+        String sql = "select a.name from abilities a inner join evolution_abilities ea on ea.idAbilitie=a.id "
+                + "inner join evolution e on e.id=ea.idEvo inner join evolution_pkm ep on e.id=ep.idEvo inner join "
+                + "pokemon p on p.id=ep.idPkm where p.name='"+name+"'"; 
+        
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -192,23 +193,21 @@ public class Modelo {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                if (i == 0) {
-                    lstEvolutions.add(rs.getString("e.name"));
-                }
-                lstEvolutions.add(rs.getString("e.lvlEvolve"));
-                lstEvolutions.add(rs.getString("a.name"));
-                i++;
+                res.add(rs.getString("a.name")); 
             }
-            return lstEvolutions;
-        } catch (SQLException e) {
+            return res;
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
     }
-        public List<String> EvolutionsTypeAndAbilities(String name) {
-        List<String> lstEvolutions = new ArrayList<String>();
-        String sql = "select e.name, t.name, a.name from evolution e inner join evolution_pkm ep on e.id=ep.idEvo inner join evolution_type et on et.idEvo = e.id inner join "
-                + " type t on t.id = et.idType inner join evolution_abilities ea on ea.idEvo = e.id inner join abilities a on a.id=ea.idAbilitie inner join pokemon p on ep.idPkm = p.id where p.name='"+name+"'";
+    
+    public List<String> EvolutionsType(String name) {
+        List <String> res = new ArrayList<String>();
+        String sql = "select e.name, t.name, e.lvlEvolve from type t inner join evolution_type et on et.idType=t.id "
+                + "inner join evolution e on e.id=et.idEvo inner join evolution_pkm ep on e.id=ep.idEvo inner join "
+                + "pokemon p on p.id=ep.idPkm where p.name='"+name+"'";
+        
         try {
             PreparedStatement ps = null;
             ResultSet rs = null;
@@ -216,12 +215,53 @@ public class Modelo {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                lstEvolutions.add(rs.getString("e.name"));
-                lstEvolutions.add(rs.getString("t.name"));
-                lstEvolutions.add(rs.getString("a.name"));
+                res.add(rs.getString("e.name"));
+                res.add(rs.getString("t.name"));
+                res.add(rs.getString("e.lvlEvolve"));
             }
-            return lstEvolutions;
-        } catch (SQLException e) {
+            return res;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public List<String> getEvolutions(String name) {
+        List<String> res = new ArrayList<String>();
+        String sql = "select e.name, e.lvlEvolve from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
+                + "inner join pokemon p on p.id=ep.idPkm where p.name='" + name + "'";
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(rs.getString("e.name"));
+            }
+            return res;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public List<String> getAbilities(String name) {
+        List<String> res = new ArrayList<String>();
+        String sql = "select a.name from abilities a inner join evolution_abilities ea on a.id=ea.idAbilitie "
+                + "inner join evolution e on ea.idEvo = e.id inner join evolution_pkm ep on ep.idEvo=e.id inner join "
+                + "pokemon p on p.id=ep.idPkm where p.name='" + name + "'";
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(rs.getString("a.name"));
+            }
+            return res;
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
@@ -274,8 +314,9 @@ public class Modelo {
         }
         return false;
     }
-   public boolean changePokemonName(String name, String newName) {
-        String sql = "update pokemon p set p.name ='" + newName + "' where p.name='" + name +"'";
+
+    public boolean changePokemonName(String name, String newName) {
+        String sql = "update pokemon p set p.name ='" + newName + "' where p.name='" + name + "'";
         Connection con = conexion.getConexion();
         PreparedStatement ps = null;
         try {
