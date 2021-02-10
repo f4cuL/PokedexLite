@@ -162,7 +162,7 @@ public class Modelo {
         }
     }
 
-        public int listAllPokemons() {
+    public int listAllPokemons() {
         String sql = "select count(*) as cantidad from pokemon";
         try {
             PreparedStatement ps = null;
@@ -170,17 +170,87 @@ public class Modelo {
             Connection con = conexion.getConexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery(sql);
-            while (rs.next())
-            {
-             return rs.getInt("cantidad");
+            while (rs.next()) {
+                return rs.getInt("cantidad");
             }
-                 
+
         } catch (Exception e) {
             System.out.println(e);
         }
         return 0;
     }
-    
+
+    public List<String> cargarEvolutionsByName(String name) {
+        List<String> lstEvolutions = new ArrayList<String>();
+        String sql = "select e.name, e.lvlEvolve from evolution e inner join evolution_pkm ep on e.id=ep.idEvo "
+                + "inner join pokemon p on p.id=ep.idPkm where p.name='" + name + "'";
+        int i = 0;
+        try {
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                if (i == 0) {
+                    lstEvolutions.add(rs.getString("e.name"));
+                }
+                lstEvolutions.add(rs.getString("e.lvlEvolve"));
+                i++;
+            }
+            return lstEvolutions;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public boolean addPokemonByName(String name) {
+        String sql = "insert into pokemon(name) values(?)";
+        try {
+            PreparedStatement ps = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean returnPokemonByName(String name) {
+        String sql = "select name from pokemon where name =?";
+        try {
+            PreparedStatement ps = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean borrarPokemon(String name) {
+        String sql = "delete from pokemon where name =?";
+        try {
+            PreparedStatement ps = null;
+            Connection con = conexion.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+
     public void limpiarTabla(JTable tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
             DefaultTableModel tabla2 = (DefaultTableModel) tabla.getModel();
@@ -231,6 +301,7 @@ public class Modelo {
             System.out.println(e);
         }
     }
+
 
     public void cargarTablaAbilities(JTable tabla) {
         limpiarTabla(tabla);
