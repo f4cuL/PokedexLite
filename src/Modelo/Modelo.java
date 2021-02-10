@@ -221,14 +221,17 @@ public class Modelo {
     }
 
     public boolean returnPokemonByName(String name) {
-        String sql = "select name from pokemon where name =?";
+        String sql = "select name from pokemon where name ='"+name+"'";
         try {
             PreparedStatement ps = null;
             Connection con = conexion.getConexion();
+            ResultSet rs = null;
             ps = con.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.execute();
-            return true;
+            rs = ps.executeQuery(sql);
+            while (rs.next())
+            {
+               return true;
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -249,7 +252,19 @@ public class Modelo {
         }
         return false;
     }
-
+   public boolean changePokemonName(String name, String newName) {
+        String sql = "update pokemon p set p.name ='" + newName + "' where p.name='" + name +"'";
+        Connection con = conexion.getConexion();
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareCall(sql);
+            ps.execute();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 
     public void limpiarTabla(JTable tabla) {
         for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -509,7 +524,7 @@ public class Modelo {
         }
         return ("Error");
     }
-    
+
     public String addAbilitieEvo() {
         String sql = "insert into abilities(name) values(?)";
         try {
@@ -518,7 +533,7 @@ public class Modelo {
             ps = con.prepareStatement(sql);
             ps.setString(1, controlador.getNewAbilitieEvo().getTxtNewAbilitie().getText());
             ps.execute();
-            String name=controlador.getNewAbilitieEvo().getTxtNewAbilitie().getText();
+            String name = controlador.getNewAbilitieEvo().getTxtNewAbilitie().getText();
             controlador.getNewAbilitieEvo().getTxtNewAbilitie().setText(null);
             return name;
         } catch (Exception e) {
@@ -526,7 +541,7 @@ public class Modelo {
         }
         return ("Error");
     }
- 
+
     public boolean removeAbilitie(int idPkm, int idAbilitie) {
         String sql = "delete from pokemon_abilities where idPkm=? and idAbilitie=?";
         Connection con = conexion.getConexion();
@@ -545,7 +560,8 @@ public class Modelo {
         }
         return false;
     }
-        public boolean removeAbilitieEvo(int idEvo, int idAbilitie) {
+
+    public boolean removeAbilitieEvo(int idEvo, int idAbilitie) {
         String sql = "delete from evolution_abilities where idEvo=? and idAbilitie=?";
         Connection con = conexion.getConexion();
         PreparedStatement ps = null;
@@ -563,9 +579,8 @@ public class Modelo {
         }
         return false;
     }
-    
-    
-    public boolean addAbilitieToPokemon(int idAbilitie){
+
+    public boolean addAbilitieToPokemon(int idAbilitie) {
         String sql = "insert into pokemon_abilities(idPkm,idAbilitie) values(?,?)";
         PreparedStatement ps = null;
         Connection con = conexion.getConexion();
@@ -583,7 +598,7 @@ public class Modelo {
         }
         return false;
     }
-    
+
     public int getIdFromAbilitieName(String name) {
         String sql = "select id from abilities where name='" + name + "'";
         PreparedStatement ps = null;

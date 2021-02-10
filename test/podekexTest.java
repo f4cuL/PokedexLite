@@ -75,6 +75,7 @@ public class podekexTest {
         assertEquals(expectedName, evolutions.get(0));
         assertEquals(expectedLvl, evolutions.get(1));
         
+        System.out.println("Nombre Pokemon: Pikachu");
         System.out.println("Nombre evolución: " +evolutions.get(0));
         System.out.println("Nivel evolución: " +evolutions.get(1));
         
@@ -93,6 +94,21 @@ public class podekexTest {
 
         separador();
     }
+    @Test
+    public void testChangeName() {
+        System.out.println("podekexTest.testChangeName()");
+        model.changePokemonName("Pikachu", "Kachupi");
+        System.out.println("¿El pokemon Pikachu ahora se llama Kachupi?: "+ model.returnPokemonByName("Kachupi"));
+        System.out.println("¿El pokemon aún se llama Pikachu?: "+ model.returnPokemonByName("Pikachu"));
+        System.out.println("Deshaciendo cambios..");
+        model.changePokemonName("Kachupi", "Pikachu");
+        System.out.println("¿El pokemon Pikachu ahora se llama Kachupi?: "+ model.returnPokemonByName("Kachupi"));
+        System.out.println("¿El pokemon ahora se llama Pikachu?: "+ model.returnPokemonByName("Pikachu"));
+        
+        separador();
+        
+    }
+
     @BeforeClass
     public static void setUpClass() {
         System.out.println("Before class");
